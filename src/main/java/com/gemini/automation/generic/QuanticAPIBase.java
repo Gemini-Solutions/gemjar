@@ -1,13 +1,21 @@
 package com.gemini.automation.generic;
 
+import java.io.InputStream;
+import java.lang.reflect.Method;
+
+import org.testng.ITestContext;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+
 import com.gemini.automation.ApiTest.ProjectApiUrl;
 import com.gemini.automation.ApiTest.ProjectSampleJson;
 import com.qa.gemini.quartzReporting.GemTestReporter;
-import org.testng.ITestContext;
-import org.testng.annotations.*;
-
-import java.io.InputStream;
-import java.lang.reflect.Method;
 
 public class QuanticAPIBase extends QuanticGenericUtils {
     @BeforeSuite

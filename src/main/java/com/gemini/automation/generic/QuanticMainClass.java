@@ -1,15 +1,16 @@
 package com.gemini.automation.generic;
 
-import com.gemini.automation.listners.PropertyListeners;
-import com.gemini.automation.listners.QuanticTestngTestFilter;
-import org.testng.IMethodInterceptor;
-import org.testng.TestNG;
-import org.reflections.Reflections;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+
+import org.reflections.Reflections;
+import org.testng.IMethodInterceptor;
+import org.testng.TestNG;
+
+import com.gemini.automation.listners.PropertyListeners;
+import com.gemini.automation.listners.QuanticTestngTestFilter;
 
 public class QuanticMainClass {
 

@@ -1,15 +1,21 @@
 package com.gemini.automation.dataProvider;
 
-import com.gemini.automation.generic.QuanticGlobalVar;
-import com.google.gson.*;
-import org.apache.commons.io.IOUtils;
-import org.testng.ITestNGMethod;
-import org.testng.annotations.DataProvider;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+
+import org.apache.commons.io.IOUtils;
+import org.testng.ITestNGMethod;
+import org.testng.annotations.DataProvider;
+
+import com.gemini.automation.generic.QuanticGlobalVar;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 public class QuanticDataProvider {
     @DataProvider(name = "QuanticDataProvider")

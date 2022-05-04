@@ -1,15 +1,14 @@
 package com.gemini.automation.generic;
 
-import com.qa.gemini.quartzReporting.GemTestReporter;
-import com.qa.gemini.quartzReporting.STATUS;
 import org.openqa.selenium.WebDriver;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.GeckoDriverService;
 
-import java.util.Locale;
+import com.qa.gemini.quartzReporting.GemTestReporter;
+import com.qa.gemini.quartzReporting.STATUS;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class DriverManager {
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();

@@ -18,75 +18,49 @@ import com.gemini.apitest.ProjectSampleJson;
 import com.gemini.quartzReporting.GemTestReporter;
 
 public class QuanticAPIBase extends QuanticGenericUtils {
-    @BeforeSuite
-    public void beforeSuite(ITestContext iTestContext) {
-//        setKerberosRequiredConfiguration();
-        initializeQuanticGlobalVariables(iTestContext);
-       // int numberOfTestCasesToRun = iTestContext.getSuite().getAllInvokedMethods().size();
-        //Report initialize
-        String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
-        InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
-        ProjectApiUrl.initializeApiUrl(ip);
-        ProjectSampleJson.loadSampleJson();
+	@BeforeSuite
+	public void beforeSuite(ITestContext iTestContext) {
+		initializeQuanticGlobalVariables();
+		String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
+		InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
+		ProjectApiUrl.initializeApiUrl(ip);
+		ProjectSampleJson.loadSampleJson();
+		GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+	}
 
+	@BeforeTest
+	public void beforeTest() {
+	}
 
-        String loc = null;
-        try {
-            if (quanticProperty.containsKey("reportLocation")) {
-                loc = quanticProperty.getProperty("reportLocation");
-            } else if (ProjectProperties.getStringPropertyNames().contains("reportLocation")) {
-                loc = ProjectProperties.getProperty("reportLocation");
-            } else {
-                loc = null;
-            }
-        } catch (Exception e) {
-            System.out.println("Some Error Occur With reportLocation . Default reportLocation Set");
-        }
+	@BeforeClass
+	public void beforeClass() {
+	}
 
+	@BeforeMethod
+	public void beforeMethod(Method method) {
+		String testcaseName = method.getName();
+		String testClassName = method.getClass().getSimpleName();
+		TestCaseData.setCurrentTestCaseData(testcaseName);
+		GemTestReporter.startTestCase(testcaseName, testClassName, false);
+	}
 
-        // Initializing startSuite of Gem-Reporting
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment, loc);
-    }
+	@AfterMethod
+	public void afterMethod() {
+		// Report
+		GemTestReporter.endTestCase();
+	}
 
-    @BeforeTest
-    public void beforeTest() {
-    }
+	@AfterClass
+	public void afterClass() {
 
-    @BeforeClass
-    public void beforeClass() {
-    }
+	}
 
-    @BeforeMethod
-    public void beforeMethod(Method method) {
-        String testcaseName = method.getName();
-        TestCaseData.setCurrentTestCaseData(testcaseName);
+	@AfterTest
+	public void afterTest() {
+	}
 
-
-        String productType = ProjectProperties.getProperty("productType") == null ? "GemJavaProject" : ProjectProperties.getProperty("productType");
-        GemTestReporter.startTestCase(testcaseName, "test", productType, false);
-        GemTestReporter.startTestCase(testcaseName, "test", "GemJavaProject", false);
-
-    }
-
-    @AfterMethod
-    public void afterMethod() {
-        //Report
-        GemTestReporter.endTestCase();
-    }
-
-    @AfterClass
-    public void afterClass() {
-
-    }
-
-    @AfterTest
-    public void afterTest() {
-    }
-
-    @AfterSuite
-    public void afterSuite() {
-        //Report execution
-        GemTestReporter.endSuite();
-        //Report mail
-    }
+	@AfterSuite
+	public void afterSuite() {
+		GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+	}
 }

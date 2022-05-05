@@ -1,36 +1,35 @@
 package com.gemini.quartzReporting;
 
- class Steps {
-	
-	 private String title;
-	 private String description;
-	 private String status;
-	
-	 public String getTitle() {
-	  return title;
-	 }
+class Steps {
 
-	 public String getDescription() {
-	  return description;
-	 }
+	private String title;
+	private String description;
+	private String status;
 
-	 public String getStatus() {
-	  return status;
-	 }
+	public String getTitle() {
+		return title;
+	}
 
-	 
-	 // Setter Methods 
+	public String getDescription() {
+		return description;
+	}
 
-	 public void setTitle(String title) {
-	  this.title = title;
-	 }
+	public String getStatus() {
+		return status;
+	}
 
-	 public void setDescription(String description) {
-	  this.description = description;
-	 }
+	// Setter Methods
 
-	 public void setStatus(String status) {
-	  this.status = status;
-	 }
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }

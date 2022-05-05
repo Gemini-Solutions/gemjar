@@ -1,30 +1,29 @@
 package com.gemini.quartzReporting;
 
 class QuartzReporting {
- private String reportProduct;
- Suits_Details Suits_Details;
+	private String reportProduct;
+	Suits_Details Suits_Details;
 
- 
- public QuartzReporting(Suits_Details suits_Details) {
-	 this.reportProduct = "JAVGEM";
-	 this.Suits_Details = suits_Details;
-}
- 
- public String getReportProduct() {
-  return reportProduct;
- }
+	public QuartzReporting(Suits_Details suits_Details) {
+		this.reportProduct = "JAVGEM";
+		this.Suits_Details = suits_Details;
+	}
 
- public Suits_Details getSuits_Details() {
-  return Suits_Details;
- }
+	public String getReportProduct() {
+		return reportProduct;
+	}
 
- // Setter Methods 
+	public Suits_Details getSuits_Details() {
+		return Suits_Details;
+	}
 
- public void setReportProduct(String reportProduct) {
-  this.reportProduct = reportProduct;
- }
+	// Setter Methods
 
- public void setSuits_Details(Suits_Details Suits_DetailsObject) {
-  this.Suits_Details = Suits_DetailsObject;
- }
+	public void setReportProduct(String reportProduct) {
+		this.reportProduct = reportProduct;
+	}
+
+	public void setSuits_Details(Suits_Details Suits_DetailsObject) {
+		this.Suits_Details = Suits_DetailsObject;
+	}
 }

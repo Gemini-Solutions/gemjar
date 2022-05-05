@@ -19,40 +19,36 @@ class TestCase_Details {
 	private String user;
 	private String machine;
 	private String result_file;
-	private String product_type;
+	private String product_type = "GEMJAR";
 	private boolean ignore;
 
-
-
-
-	public TestCase_Details(String testcaseName, String category, String user, String productType, boolean ignore) {
-		this.tc_run_id = testcaseName+"_"+UUID.randomUUID();
+	public TestCase_Details(String testcaseName, String category, String user, boolean ignore) {
+		this.tc_run_id = testcaseName + "_" + UUID.randomUUID();
 		this.name = testcaseName;
 		this.start_time = GemReportingUtility.getCurrentTimeInMilliSecond();
 		this.category = category;
 		this.user = user;
 		this.machine = GemReportingUtility.getMachineName();
-		this.product_type = productType;
 		this.ignore = ignore;
 	}
 
-	public  String toString() {
-		return "tc_run_id = "+ this.tc_run_id + ", start_time = "+ this.start_time +", end_time = "+ this.end_time
-				+", name = "+this.name + ", category = "+this.category+ ", log_file = "+this.log_file + ", status = "+this.status;
+	public String toString() {
+		return "tc_run_id = " + this.tc_run_id + ", start_time = " + this.start_time + ", end_time = " + this.end_time
+				+ ", name = " + this.name + ", category = " + this.category + ", log_file = " + this.log_file
+				+ ", status = " + this.status;
 	}
-	
+
 	public TestCase_Details(String testcaseName, String category, String user, String productType) {
-		this(testcaseName,category,user,productType, false);
+		this(testcaseName, category, user, false);
 	}
 
-	public TestCase_Details(String testcaseName, String category, String productType ) {
-		this(testcaseName,category,GemReportingUtility.getCurrentUserName(),productType, false);
+	public TestCase_Details(String testcaseName, String category, boolean ignore) {
+		this(testcaseName, category, GemReportingUtility.getCurrentUserName(), false);
 	}
 
-	public TestCase_Details(String testcaseName, String category ) {
-		this(testcaseName,category,GemReportingUtility.getCurrentUserName(),null, false);
+	public TestCase_Details(String testcaseName, String category) {
+		this(testcaseName, category, GemReportingUtility.getCurrentUserName(), false);
 	}
-
 
 	public void endTestCase() {
 		this.end_time = GemReportingUtility.getCurrentTimeInMilliSecond();
@@ -107,7 +103,7 @@ class TestCase_Details {
 		return ignore;
 	}
 
-	// Setter Methods 
+	// Setter Methods
 
 	public void setTc_run_id(String tc_run_id) {
 		this.tc_run_id = tc_run_id;
@@ -136,19 +132,20 @@ class TestCase_Details {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+
 	public void setStatus(JsonArray testCaseSteps) {
 		Set<String> statusSet = new HashSet<String>();
 		for (JsonElement testCaseStep : testCaseSteps) {
 			String status = testCaseStep.getAsJsonObject().get("status").getAsString().toUpperCase();
 			statusSet.add(status);
 		}
-		if(statusSet.contains("FAIL")) {
-			this.status= "FAIL";
-		}else if(statusSet.contains("WARN")) {
+		if (statusSet.contains("FAIL")) {
+			this.status = "FAIL";
+		} else if (statusSet.contains("WARN")) {
 			this.status = "WARN";
-		}else if(statusSet.contains("EXE")) {
+		} else if (statusSet.contains("EXE")) {
 			this.status = "EXE";
-		}else {
+		} else {
 			this.status = "PASS";
 		}
 	}

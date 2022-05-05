@@ -40,6 +40,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
         } catch (Exception e) {
             System.out.println("Some Error Occur With reportLocation . Default reportLocation Set");
         }
+        QuanticGlobalVar.report_type="UI Automation";
         // Initializing startSuite of Gem-Reporting
         GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment, loc);
 

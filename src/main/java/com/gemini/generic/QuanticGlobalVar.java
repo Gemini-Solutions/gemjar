@@ -17,6 +17,8 @@ public class QuanticGlobalVar {
 
     public static String reportLoc;
 
+    public static String report_type;
+
     public static String browserInTest;
 
     ////Mail List

@@ -43,6 +43,8 @@ public class QuanticAPIBase extends QuanticGenericUtils {
             System.out.println("Some Error Occur With reportLocation . Default reportLocation Set");
         }
 
+        QuanticGlobalVar.report_type="Api Automation";
+
 
         // Initializing startSuite of Gem-Reporting
         GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment, loc);

@@ -1,6 +1,8 @@
 package com.gemini.quartzReporting;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -150,6 +152,13 @@ public class GemTestReporter {
         //String suiteDetail = gson.toJson(reporting, QuartzReporting.class);
         JsonElement suiteDetail = gson.toJsonTree(reporting);
         suiteDetail.getAsJsonObject().add("TestStep_Details", stepJson);
+        //remove empty Val
+        String[] status = new String[]{"INFO", "WARN", "INCOMPLETE", "EXE", "REQ"};
+        for (String s : status) {
+            if (suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("Testcase_Info").getAsJsonObject().get(s).getAsInt() == 0) {
+                suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("Testcase_Info").getAsJsonObject().remove(s);
+            }
+        }
         System.out.println("SuitDetails " + suiteDetail.toString());
 //        System.out.println("----------------------------------------------------------------");
 //        System.out.println("testCaseDetails"+stepJson.toString());

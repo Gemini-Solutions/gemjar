@@ -26,7 +26,7 @@ import com.gemini.quartzReporting.STATUS;
 public class DriverAction {
 
 
-    public static void launchUrl(String url, boolean report) throws IOException {
+    public static void launchUrl(String url, boolean report){
         try {
             DriverManager.getWebDriver().get(url);
             if (report) {
@@ -40,7 +40,7 @@ public class DriverAction {
         }
     }
 
-    public static void launchUrl(String url) throws IOException {
+    public static void launchUrl(String url){
         launchUrl(url, false);
     }
 
@@ -721,15 +721,10 @@ public class DriverAction {
 
     /////////////////////////////////////////////
 
-    public static String takeSnapShot() throws IOException {
+    public static String takeSnapShot() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
-        //hms
-//        DateTimeFormatter hms = DateTimeFormatter.ofPattern("HHmmss");
-//        //ddmmyyyyhhmmss
-//        DateTimeFormatter dmyhms = DateTimeFormatter.ofPattern("ddmmyyyyHHmmss");
-
         String fileWithPath = "Report/" + dtf.format(now) + "/SS/SS" + timestamp.getTime() + ".png";
         WebDriver webdriver = DriverManager.getWebDriver();
         TakesScreenshot scrShot = ((TakesScreenshot) webdriver);

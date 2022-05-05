@@ -23,7 +23,6 @@ public class ProjectApiUrl {
     public static void initializeApiUrl(InputStream ip){
         try{
             properties = new Properties();
-            //properties.load(ClassLoader.getSystemResourceAsStream(urlFileName));
             properties.load(ip);
         } catch (IOException e){
             // TODO Auto-generated catch block

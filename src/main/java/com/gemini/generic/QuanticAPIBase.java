@@ -20,32 +20,12 @@ import com.gemini.quartzReporting.GemTestReporter;
 public class QuanticAPIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
-//        setKerberosRequiredConfiguration();
-        initializeQuanticGlobalVariables(iTestContext);
-       // int numberOfTestCasesToRun = iTestContext.getSuite().getAllInvokedMethods().size();
-        //Report initialize
+        initializeQuanticGlobalVariables();
         String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
         InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
         ProjectApiUrl.initializeApiUrl(ip);
         ProjectSampleJson.loadSampleJson();
-
-
-        String loc = null;
-        try {
-            if (quanticProperty.containsKey("reportLocation")) {
-                loc = quanticProperty.getProperty("reportLocation");
-            } else if (ProjectProperties.getStringPropertyNames().contains("reportLocation")) {
-                loc = ProjectProperties.getProperty("reportLocation");
-            } else {
-                loc = null;
-            }
-        } catch (Exception e) {
-            System.out.println("Some Error Occur With reportLocation . Default reportLocation Set");
-        }
-
-
-        // Initializing startSuite of Gem-Reporting
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment, loc);
+        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
     }
 
     @BeforeTest
@@ -59,13 +39,9 @@ public class QuanticAPIBase extends QuanticGenericUtils {
     @BeforeMethod
     public void beforeMethod(Method method) {
         String testcaseName = method.getName();
+        String testClassName = method.getClass().getSimpleName();
         TestCaseData.setCurrentTestCaseData(testcaseName);
-
-
-        String productType = ProjectProperties.getProperty("productType") == null ? "GemJavaProject" : ProjectProperties.getProperty("productType");
-        GemTestReporter.startTestCase(testcaseName, "test", productType, false);
-        GemTestReporter.startTestCase(testcaseName, "test", "GemJavaProject", false);
-
+        GemTestReporter.startTestCase(testcaseName, testClassName, false);
     }
 
     @AfterMethod
@@ -85,8 +61,6 @@ public class QuanticAPIBase extends QuanticGenericUtils {
 
     @AfterSuite
     public void afterSuite() {
-        //Report execution
-        GemTestReporter.endSuite();
-        //Report mail
+        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
     }
 }

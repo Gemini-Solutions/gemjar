@@ -19,20 +19,19 @@ class TestCase_Details {
 	private String user;
 	private String machine;
 	private String result_file;
-	private String product_type;
+	private String product_type = "GEMJAR";
 	private boolean ignore;
 
 
 
 
-	public TestCase_Details(String testcaseName, String category, String user, String productType, boolean ignore) {
+	public TestCase_Details(String testcaseName, String category, String user, boolean ignore) {
 		this.tc_run_id = testcaseName+"_"+UUID.randomUUID();
 		this.name = testcaseName;
 		this.start_time = GemReportingUtility.getCurrentTimeInMilliSecond();
 		this.category = category;
 		this.user = user;
 		this.machine = GemReportingUtility.getMachineName();
-		this.product_type = productType;
 		this.ignore = ignore;
 	}
 
@@ -42,15 +41,15 @@ class TestCase_Details {
 	}
 	
 	public TestCase_Details(String testcaseName, String category, String user, String productType) {
-		this(testcaseName,category,user,productType, false);
+		this(testcaseName,category,user, false);
 	}
 
-	public TestCase_Details(String testcaseName, String category, String productType ) {
-		this(testcaseName,category,GemReportingUtility.getCurrentUserName(),productType, false);
+	public TestCase_Details(String testcaseName, String category, boolean ignore) {
+		this(testcaseName,category,GemReportingUtility.getCurrentUserName(), false);
 	}
 
 	public TestCase_Details(String testcaseName, String category ) {
-		this(testcaseName,category,GemReportingUtility.getCurrentUserName(),null, false);
+		this(testcaseName,category,GemReportingUtility.getCurrentUserName(), false);
 	}
 
 

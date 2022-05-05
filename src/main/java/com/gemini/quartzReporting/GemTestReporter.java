@@ -1,6 +1,5 @@
 package com.gemini.quartzReporting;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,28 +16,20 @@ public class GemTestReporter {
     private static ThreadLocal<TestCase_Details> testCase_Details = new ThreadLocal<TestCase_Details>();
     private static JsonObject stepJson = new JsonObject();
     private static ThreadLocal<JsonArray> steps = new ThreadLocal<JsonArray>();
+    
     private static volatile Suits_Details suiteDetails;
     private static QuartzReporting reporting;
-    public static String ReportLocation = null;
-
-
-    public static void startSuite(String projectName, String env, String reportLocation) {
-        ReportLocation = reportLocation;
-        String s_run_id = projectName + "_" + GemReportingUtility.getCurrentTimeInMilliSecond() + "_" + env.toUpperCase();
-        suiteDetails = new Suits_Details(s_run_id, projectName, env);
-        reporting = new QuartzReporting(suiteDetails);
-    }
-
+   
+   
     public static void startSuite(String projectName, String env) {
-        ReportLocation = null;
         String s_run_id = projectName + "_" + GemReportingUtility.getCurrentTimeInMilliSecond() + "_" + env.toUpperCase();
         suiteDetails = new Suits_Details(s_run_id, projectName, env);
         reporting = new QuartzReporting(suiteDetails);
     }
 
-    public static void startTestCase(String testcaseName, String category, String productType, boolean ignore) {
+    public static void startTestCase(String testcaseName, String category, boolean ignore) {
         steps.set(new JsonArray());
-        testCase_Details.set(new TestCase_Details(testcaseName, category, GemReportingUtility.getCurrentUserName(), productType, ignore));
+        testCase_Details.set(new TestCase_Details(testcaseName, category,  ignore));
     }
 
 
@@ -136,12 +127,17 @@ public class GemTestReporter {
     }
 
     public static void endSuite() {
+        endSuite(null);
+
+    }
+    public static void endSuite(String reportLoc) {
         suiteDetails.endSuite();
-        createReport();
+        createReport(reportLoc);
 
     }
 
-    private static void createReport() {
+    
+    private static void createReport(String reportLoc) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         //String suiteDetail = gson.toJson(reporting, QuartzReporting.class);
         JsonElement suiteDetail = gson.toJsonTree(reporting);
@@ -149,12 +145,9 @@ public class GemTestReporter {
         System.out.println("SuitDetails "+ suiteDetail.toString());
 //        System.out.println("----------------------------------------------------------------");
 //        System.out.println("testCaseDetails"+stepJson.toString());
-        try {
-            GemReportingUtility.createReport(suiteDetail.toString(), stepJson.toString());
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        
+            GemReportingUtility.createReport(suiteDetail.toString(), stepJson.toString(),reportLoc);
+       
     }
 
     public static   JsonElement getSuiteDetails(){

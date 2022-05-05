@@ -3,7 +3,7 @@ package com.gemini.generic;
 import java.util.List;
 import java.util.Properties;
 
-public class QuanticGlobalVar {
+public class QuanticGlobalVar  {
     public static String projectName;
     public static String environment;
     public static String reportName;
@@ -12,6 +12,8 @@ public class QuanticGlobalVar {
     public static Properties projectProperty;
     public static Properties quanticProperty;
     public static List<String> testCasesToRun;
+    public static String reportLocation ;
+    public static String productType;
 
     ////Test case variables
 

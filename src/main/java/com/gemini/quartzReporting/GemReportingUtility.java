@@ -15,22 +15,30 @@ import org.apache.commons.io.IOUtils;
 public class GemReportingUtility {
 	
 	
-	public static void createReport(String suiteDetail, String stepJson) throws IOException {
-		String loc = GemTestReporter.ReportLocation;
-		String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("QuanticReport.html"), Charset.defaultCharset());
+	public static void createReport(String suiteDetail, String stepJson,String  reportLoc) {
+		try {String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("QuanticReport.html"), Charset.defaultCharset());
 		htmlTemplate = htmlTemplate.replace("var obj = '';","var obj = "+suiteDetail+";");
 		LocalDateTime now = LocalDateTime.now();
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
 			
 		DateTimeFormatter dmyhms = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 
-		if(loc == null) {
-			FileUtils.writeStringToFile(new File("Report/"+dtf.format(now)+"/"+"GemEcoTestReport_"+dmyhms.format(now)+".html"), htmlTemplate, Charset.defaultCharset());
+		if(reportLoc == null) {
+			
+				FileUtils.writeStringToFile(new File("Report/"+dtf.format(now)+"/"+"GemEcoTestReport_"+dmyhms.format(now)+".html"), htmlTemplate, Charset.defaultCharset());	
 		}
 		else{
-			FileUtils.writeStringToFile(new File(loc+"/GemEcoTestReport.html"), htmlTemplate, Charset.defaultCharset());
+			FileUtils.writeStringToFile(new File(reportLoc+"/GemEcoTestReport.html"), htmlTemplate, Charset.defaultCharset());
+		}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		}
+	
+	public static void createReport(String suiteDetail, String stepJson) {
+		createReport(suiteDetail, stepJson,null);
+	}
 	
 	public static long getCurrentTimeInSecond() {
 		return Instant.now().getEpochSecond();

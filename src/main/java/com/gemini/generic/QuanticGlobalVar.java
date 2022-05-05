@@ -15,6 +15,8 @@ public class QuanticGlobalVar {
 
     ////Test case variables
 
+    public static String reportLoc;
+
     public static String browserInTest;
 
     ////Mail List

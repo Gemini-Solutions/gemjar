@@ -10,6 +10,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.apache.commons.codec.binary.Base64;
 
 public class GemTestReporter {
 
@@ -48,9 +49,12 @@ public class GemTestReporter {
 
     public static void addTestStep(String stepTitle, String stepDescription, STATUS status, String screenShotPath) {
         Map<String, String> scrnshot = new HashMap<String, String>();
-//		scrnshot.put("ScreenShot", "data:image/gif;base64, "+screenShotPath);
-    	scrnshot.put("ScreenShot", screenShotPath);
-
+        boolean isBase64 = Base64.isArrayByteBase64(screenShotPath.getBytes());
+        if (isBase64) {
+            scrnshot.put("ScreenShot", "data:image/gif;base64, " + screenShotPath);
+        } else {
+            scrnshot.put("ScreenShot", screenShotPath);
+        }
         addTestStep(stepTitle, stepDescription, status, scrnshot);
     }
 
@@ -145,8 +149,8 @@ public class GemTestReporter {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         //String suiteDetail = gson.toJson(reporting, QuartzReporting.class);
         JsonElement suiteDetail = gson.toJsonTree(reporting);
-        suiteDetail.getAsJsonObject().add("TestStep_Details",stepJson);
-        System.out.println("SuitDetails "+ suiteDetail.toString());
+        suiteDetail.getAsJsonObject().add("TestStep_Details", stepJson);
+        System.out.println("SuitDetails " + suiteDetail.toString());
 //        System.out.println("----------------------------------------------------------------");
 //        System.out.println("testCaseDetails"+stepJson.toString());
         try {
@@ -157,13 +161,13 @@ public class GemTestReporter {
         }
     }
 
-    public static   JsonElement getSuiteDetails(){
+    public static JsonElement getSuiteDetails() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement suiteDetail = gson.toJsonTree(reporting);
         return suiteDetail;
     }
 
-    public static String getTestStepDetails(){
+    public static String getTestStepDetails() {
         String testStepJson = stepJson.toString();
         return testStepJson;
     }

@@ -1,23 +1,16 @@
 package com.gemini.generic;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-
-import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
-
+import com.gemini.generic.*;
 import com.gemini.listners.QuanticTestngTestFilter;
 import com.gemini.quartzReporting.GemTestReporter;
+import com.gemini.quartzReporting.GemTestReporter;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Listeners(QuanticTestngTestFilter.class)
 public class QuanticUIBase extends QuanticGenericUtils {
@@ -26,18 +19,24 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
         initializeQuanticGlobalVariables(iTestContext);
-     //   int numberOfTestCasesToRun = iTestContext.getSuite().getAllInvokedMethods().size();
+        int numberOfTestCasesToRun = iTestContext.getSuite().getAllInvokedMethods().size();
         //Report
 
-        String loc = null;
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
+        //hms
+        DateTimeFormatter hms = DateTimeFormatter.ofPattern("HHmmss");
+        String loc = "";
         try {
             if (System.getProperty("reportLocation") != null && System.getProperty("reportLocation").isEmpty()) {
                 loc = System.getProperty("reportLocation");
             } else if (ProjectProperties.getStringPropertyNames().contains("reportLocation")) {
                 loc = ProjectProperties.getProperty("reportLocation");
             } else {
-                loc = null;
+                loc = "";
             }
+            loc = loc + "Report/" + dtf.format(now) + "/" + hms.format(now);
+            QuanticGlobalVar.reportLoc = loc;
         } catch (Exception e) {
             System.out.println("Some Error Occur With reportLocation . Default reportLocation Set");
         }
@@ -45,11 +44,12 @@ public class QuanticUIBase extends QuanticGenericUtils {
         GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment, loc);
 
     }
+
     @Parameters("browserName")
     @BeforeTest
     public void beforeTest(@Optional String browserName) {
         if (browserName != null) {
-            QuanticGlobalVar.browserInTest=browserName;
+            QuanticGlobalVar.browserInTest = browserName;
         }
     }
 

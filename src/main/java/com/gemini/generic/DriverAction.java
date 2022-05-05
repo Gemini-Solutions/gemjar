@@ -28,6 +28,7 @@ public class DriverAction {
 
     /**
      * launch URL
+     *
      * @param url
      * @param report
      * @throws IOException
@@ -730,14 +731,7 @@ public class DriverAction {
 
     public static String takeSnapShot() throws IOException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
-        //hms
-//        DateTimeFormatter hms = DateTimeFormatter.ofPattern("HHmmss");
-//        //ddmmyyyyhhmmss
-//        DateTimeFormatter dmyhms = DateTimeFormatter.ofPattern("ddmmyyyyHHmmss");
-
-        String fileWithPath = "Report/" + dtf.format(now) + "/SS/SS" + timestamp.getTime() + ".png";
+        String fileWithPath = QuanticGlobalVar.reportLoc + "/SS/SS" + timestamp.getTime() + ".png";
         WebDriver webdriver = DriverManager.getWebDriver();
         TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);

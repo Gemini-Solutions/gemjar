@@ -26,8 +26,15 @@ import com.gemini.quartzReporting.STATUS;
 public class DriverAction {
 
 
+    /**
+     * launch URL
+     * @param url
+     * @param report
+     * @throws IOException
+     */
     public static void launchUrl(String url, boolean report) throws IOException {
         try {
+
             DriverManager.getWebDriver().get(url);
             if (report) {
                 GemTestReporter.addTestStep("Launch Url", "Url ~" + url, STATUS.PASS, DriverAction.takeSnapShot());

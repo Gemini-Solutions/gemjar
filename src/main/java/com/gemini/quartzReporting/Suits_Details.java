@@ -17,10 +17,8 @@ class Suits_Details {
 	private String machine;
 	private String initiated_by;
 	private String run_mode;
-	ArrayList < TestCase_Details > TestCase_Details = new ArrayList < TestCase_Details > ();
+	ArrayList<TestCase_Details> TestCase_Details = new ArrayList<TestCase_Details>();
 	Testcase_Info Testcase_Info;
-
-
 
 	public Suits_Details(String s_run_id, String projectName, String env) {
 		this.s_run_id = s_run_id;
@@ -28,7 +26,7 @@ class Suits_Details {
 		this.env = env;
 		this.s_start_time = GemReportingUtility.getCurrentTimeInMilliSecond();
 		this.user = GemReportingUtility.getCurrentUserName();
-		this.machine= GemReportingUtility.getMachineName();
+		this.machine = GemReportingUtility.getMachineName();
 		this.initiated_by = GemReportingUtility.getCurrentUserName();
 		this.run_mode = "";
 	}
@@ -39,7 +37,7 @@ class Suits_Details {
 
 	public void addTestCaseInfo() {
 		int exe = 0;
-		int fail =0;
+		int fail = 0;
 		int incomplete = 0;
 		int info = 0;
 		int pass = 0;
@@ -47,55 +45,54 @@ class Suits_Details {
 		int total = TestCase_Details.size();
 		int warn = 0;
 
-		for(TestCase_Details testCaseDetail : TestCase_Details) {
+		for (TestCase_Details testCaseDetail : TestCase_Details) {
 			switch (testCaseDetail.getStatus().toLowerCase()) {
-			case  "exe":
-				exe+=1;
+			case "exe":
+				exe += 1;
 				break;
-			case "fail" :
-				fail+=1;
+			case "fail":
+				fail += 1;
 				break;
 			case "incomplete":
-				incomplete+=1;
+				incomplete += 1;
 				break;
-			case "info" :
-				info+=1;
+			case "info":
+				info += 1;
 				break;
-			case "pass" :
-				pass+=1;
+			case "pass":
+				pass += 1;
 				break;
-			case "req" :
-				req+=1;
+			case "req":
+				req += 1;
 				break;
-			case "warn" :
-				warn+=1;
+			case "warn":
+				warn += 1;
 				break;
 			default:
 				break;
-			} 
+			}
 		}
 
 		this.Testcase_Info = new Testcase_Info();
-		if(exe>0) {
+		if (exe > 0) {
 			this.Testcase_Info.setEXE(exe);
 		}
 		this.Testcase_Info.setFAIL(fail);
-		if(incomplete>0) {
+		if (incomplete > 0) {
 			this.Testcase_Info.setINCOMPLETE(incomplete);
 		}
-		if(info>0) {
+		if (info > 0) {
 			this.Testcase_Info.setINFO(info);
 		}
 		this.Testcase_Info.setPASS(pass);
-		if(req>0) {
+		if (req > 0) {
 			this.Testcase_Info.setREQ(req);
 		}
 		this.Testcase_Info.setTOTAL(total);
-		if(warn>0) {
+		if (warn > 0) {
 			this.Testcase_Info.setWARN(warn);
 		}
 	}
-
 
 	public void endSuite() {
 		addTestCaseInfo();
@@ -109,14 +106,14 @@ class Suits_Details {
 		for (TestCase_Details testcase : TestCase_Details) {
 			testCaseStatSet.add(testcase.getStatus());
 		}
-		if(testCaseStatSet.contains(STATUS.FAIL.name())) {
+		if (testCaseStatSet.contains(STATUS.FAIL.name())) {
 			this.status = STATUS.FAIL.name();
-		}else if(testCaseStatSet.contains(STATUS.WARN.name())) {
-			this.status =STATUS.WARN.name();
-		}else if(testCaseStatSet.contains(STATUS.INCOMPLETE.name())) {
-			this.status= STATUS.INCOMPLETE.name();
-		}else {
-			this.status= STATUS.PASS.name();
+		} else if (testCaseStatSet.contains(STATUS.WARN.name())) {
+			this.status = STATUS.WARN.name();
+		} else if (testCaseStatSet.contains(STATUS.INCOMPLETE.name())) {
+			this.status = STATUS.INCOMPLETE.name();
+		} else {
+			this.status = STATUS.PASS.name();
 		}
 	}
 
@@ -172,7 +169,7 @@ class Suits_Details {
 		return Testcase_Info;
 	}
 
-	// Setter Methods 
+	// Setter Methods
 
 	public void setS_run_id(String s_run_id) {
 		this.s_run_id = s_run_id;
@@ -226,4 +223,3 @@ class Suits_Details {
 		this.Testcase_Info = Testcase_Info;
 	}
 }
-

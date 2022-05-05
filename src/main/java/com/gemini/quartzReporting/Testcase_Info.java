@@ -10,8 +10,7 @@ class Testcase_Info {
 	private int REQ;
 	private int TOTAL;
 
-
-	// Getter Methods 
+	// Getter Methods
 
 	public int getFAIL() {
 		return FAIL;
@@ -45,7 +44,7 @@ class Testcase_Info {
 		return TOTAL;
 	}
 
-	// Setter Methods 
+	// Setter Methods
 
 	public void setFAIL(int FAIL) {
 		this.FAIL = FAIL;

@@ -24,8 +24,8 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 
 	@BeforeSuite
 	public void beforeSuite() {
-		QuanticGlobalVar.quanticProperty = PropertyListeners.loadProjectProperties(
-				ClassLoader.getSystemResourceAsStream("Quantic.properties"));
+		QuanticGlobalVar.quanticProperty = PropertyListeners
+				.loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
 		setCucumberProperties();
 	}
 
@@ -33,15 +33,15 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 
 		try {
 			String stepDefinitionPackages = QuanticGlobalVar.quanticProperty.getProperty("glueCode");
-			System.setProperty("cucumber.glue", "com.gemini.generic,"+stepDefinitionPackages);
-			System.setProperty("cucumber.features", new File(ClassLoader.getSystemResource("features").toURI()).getAbsolutePath());
+			System.setProperty("cucumber.glue", "com.gemini.generic," + stepDefinitionPackages);
+			System.setProperty("cucumber.features",
+					new File(ClassLoader.getSystemResource("features").toURI()).getAbsolutePath());
 		} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-
 
 	@BeforeAll
 	public void beforeAll() {
@@ -54,19 +54,21 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 	@Before
 	public void before(Scenario scenario) {
 		String testcaseName = scenario.getName();
-		String featureFileName  = new File(scenario.getUri()).getName();
+		String featureFileName = new File(scenario.getUri()).getName();
 		DriverManager.initializeBrowser(QuanticGlobalVar.browserInTest);
 		DriverAction.maximizeBrowser();
 		DriverAction.setImplicitTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
 		DriverAction.setPageLoadTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
 		DriverAction.launchUrl(ProjectProperties.getProperty("baseURL"));
-		GemTestReporter.startTestCase(testcaseName, featureFileName.substring(0, featureFileName.lastIndexOf('.')),false);
+		GemTestReporter.startTestCase(testcaseName, featureFileName.substring(0, featureFileName.lastIndexOf('.')),
+				false);
 	}
 
 	@BeforeStep
-	public void beforeStep(Step step , Scenario scenario) {
+	public void beforeStep(Step step, Scenario scenario) {
 
 	}
+
 	@AfterStep
 	public void afterStep() {
 
@@ -75,12 +77,12 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 	@After
 	public void after(Scenario scenario) {
 		DriverManager.closeDriver();
-        GemTestReporter.endTestCase();
-	}
-	@AfterAll
-	public void afterAll() {
-		  GemTestReporter.endSuite();
+		GemTestReporter.endTestCase();
 	}
 
+	@AfterAll
+	public void afterAll() {
+		GemTestReporter.endSuite();
+	}
 
 }

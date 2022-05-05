@@ -647,51 +647,7 @@ public class DriverAction {
     }
 
 
-    //////////////Accessible name////////////////////
 
-    public static String getAccessibleName(WebElement webElement) throws IOException {
-        try {
-            return webElement.getAccessibleName();
-        } catch (Exception e) {
-            e.printStackTrace();
-            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL, DriverAction.takeSnapShot());
-            return null;
-        }
-    }
-
-    public static String getAccessibleName(By locator) throws IOException {
-        try {
-            WebElement element = getElement(locator);
-            return element.getAccessibleName();
-        } catch (Exception e) {
-            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL, DriverAction.takeSnapShot());
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getArialRole(By locator) throws IOException {
-        try {
-            WebElement element = getElement(locator);
-            return element.getAriaRole();
-        } catch (Exception e) {
-            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL, DriverAction.takeSnapShot());
-
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static String getArialRole(WebElement element) throws IOException {
-        try {
-            return element.getAriaRole();
-        } catch (Exception e) {
-            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL, DriverAction.takeSnapShot());
-
-            e.printStackTrace();
-            return null;
-        }
-    }
 
     public static String getAttributeName(WebElement webElement, String name) throws IOException {
         try {

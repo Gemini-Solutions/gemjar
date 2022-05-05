@@ -1,5 +1,11 @@
 package com.gemini.automation.ApiTest;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
@@ -9,12 +15,23 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.net.ssl.*;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import com.gemini.automation.generic.ParameterizedUrl;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.qa.gemini.quartzReporting.GemTestReporter;
 import com.qa.gemini.quartzReporting.STATUS;
 
@@ -400,7 +417,8 @@ public class ApiClientConnect {
     }
 
     // healthCheck function for JSON file
-    private static JsonArray healthCheckJson(JsonArray req){
+    @SuppressWarnings("unchecked")
+	private static JsonArray healthCheckJson(JsonArray req){
         JsonArray responseJson = new JsonArray();
         for(int i=0;i< req.size();i++) {
             JsonObject test = (JsonObject) req.get(i);
@@ -417,6 +435,7 @@ public class ApiClientConnect {
             }
 
             if (test.has("headers")) {
+            	
                 headers = (Map<String, String>) gson.fromJson(test.get("headers"), headers.getClass());
             }
 

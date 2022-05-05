@@ -1,22 +1,22 @@
 package com.gemini.automation.listners;
 
-import com.gemini.automation.generic.QuanticGlobalVar;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.apache.commons.io.IOUtils;
-import org.openqa.selenium.json.Json;
-import org.testng.IMethodInstance;
-import org.testng.IMethodInterceptor;
-import org.testng.ITestContext;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.testng.IMethodInstance;
+import org.testng.IMethodInterceptor;
+import org.testng.ITestContext;
+
+import com.gemini.automation.generic.QuanticGlobalVar;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 public class QuanticTestngTestFilter implements IMethodInterceptor {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();

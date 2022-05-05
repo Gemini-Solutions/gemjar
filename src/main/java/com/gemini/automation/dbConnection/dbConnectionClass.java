@@ -1,17 +1,18 @@
 package com.gemini.automation.dbConnection;
 
-import com.gemini.automation.prism.APIRequest;
-import com.gemini.automation.prism.DataInserted;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Properties;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import groovyjarjarantlr4.v4.runtime.atn.OrderedATNConfigSet;
-import oracle.jdbc.OracleConnection;
-import oracle.net.ano.AnoComm;
-import oracle.net.ano.AnoServices;
-import org.bouncycastle.jcajce.provider.asymmetric.ec.KeyFactorySpi;
 
-import java.sql.*;
-import java.util.Properties;
+import oracle.jdbc.OracleConnection;
+import oracle.net.ano.AnoServices;
 
 
 public class dbConnectionClass {

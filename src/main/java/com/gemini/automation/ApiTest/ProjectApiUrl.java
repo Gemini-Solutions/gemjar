@@ -1,9 +1,9 @@
 package com.gemini.automation.ApiTest;
-import com.gemini.automation.generic.QuanticGlobalVar;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+
+import com.gemini.automation.generic.QuanticGlobalVar;
 
 public class ProjectApiUrl {
     private static Properties properties;

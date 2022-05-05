@@ -2,19 +2,11 @@ package com.gemini.automation.generic;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 
 import org.testng.ITestContext;
 
 import com.gemini.automation.listners.PropertyListeners;
-
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.*;
-import javax.activation.*;
 
 
 public class QuanticGenericUtils extends QuanticGlobalVar {

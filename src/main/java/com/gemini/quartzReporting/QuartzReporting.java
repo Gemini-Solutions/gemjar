@@ -6,7 +6,7 @@ class QuartzReporting {
 
  
  public QuartzReporting(Suits_Details suits_Details) {
-	 this.reportProduct = "JAVGEM";
+	 this.reportProduct = "GEMJAR";
 	 this.Suits_Details = suits_Details;
 }
  

@@ -24,6 +24,11 @@ import com.gemini.quartzReporting.STATUS;
 
 public class DriverAction {
 
+	/**
+	 * lauch URL launches any url passed in parameter
+	 * @param url
+	 * @param report
+	 */
 	public static void launchUrl(String url, boolean report) {
 		try {
 			DriverManager.getWebDriver().get(url);

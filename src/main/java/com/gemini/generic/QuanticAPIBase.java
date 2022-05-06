@@ -21,6 +21,7 @@ public class QuanticAPIBase extends QuanticGenericUtils {
 	@BeforeSuite
 	public void beforeSuite(ITestContext iTestContext) {
 		initializeQuanticGlobalVariables();
+		QuanticGlobalVar.report_type="Api Automation";
 		String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
 		InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
 		ProjectApiUrl.initializeApiUrl(ip);

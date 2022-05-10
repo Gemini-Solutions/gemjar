@@ -44,7 +44,7 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 	}
 
 	@BeforeAll
-	public void beforeAll() {
+	public static void before_all() {
 		QuanticGenericUtils.initializeQuanticGlobalVariables();
 		ProjectApiUrl.initializeApiUrl();
 		ProjectSampleJson.loadSampleJson();
@@ -65,7 +65,7 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 	}
 
 	@BeforeStep
-	public void beforeStep(Step step, Scenario scenario) {
+	public void beforeStep() {
 
 	}
 
@@ -81,7 +81,7 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 	}
 
 	@AfterAll
-	public void afterAll() {
+	public static void after_all() {
 		GemTestReporter.endSuite();
 	}
 

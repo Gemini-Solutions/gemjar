@@ -461,10 +461,11 @@ public class DriverAction {
 
     public static void AlertInput(String input, Boolean report) throws IOException {
         try {
+            String s = DriverAction.takeSnapShot();
             DriverManager.getWebDriver().switchTo().alert().sendKeys(input);
             if (report) {
                 GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Successful <BR> input ~ " + input,
-                        STATUS.PASS, DriverAction.takeSnapShot());
+                        STATUS.PASS,s);
             }
         } catch (Exception e) {
             GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Failed <BR> input ~ " + input,

@@ -1,5 +1,7 @@
 package com.gemini.generic;
 
+import com.google.gson.JsonElement;
+
 import java.util.List;
 import java.util.Properties;
 
@@ -27,4 +29,6 @@ public class QuanticGlobalVar {
 	public static String mail;
 
 	public static String report_type;
+
+	public static JsonElement suiteDetail;
 }

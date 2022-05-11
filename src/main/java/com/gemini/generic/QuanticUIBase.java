@@ -75,7 +75,10 @@ public class QuanticUIBase extends QuanticGenericUtils {
 
 	@AfterSuite
 	public void afterSuite() {
+
 		GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+		GemEcoUpload.postNewRecord();
+
 	}
 
 }

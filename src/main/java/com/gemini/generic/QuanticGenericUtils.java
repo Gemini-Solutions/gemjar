@@ -88,16 +88,20 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
 		QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
 		QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
 		QuanticGlobalVar.browserInTest = getBrowserToTest();
+		String cucumberFlag = QuanticGlobalVar.quanticProperty.getProperty("cucumber");
+		if(cucumberFlag == null || !cucumberFlag.equalsIgnoreCase("y") ){
 		if (QuanticGlobalVar.testCaseDataJsonPath != null) {
 			TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
 		} else {
 			TestCaseData
 					.setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
 		}
+		}
 		QuanticGlobalVar.reportLocation = getReportLocation();
 	}
 
 	private static String getReportLocation() {
+		String systemQuanticReportLocation = System.getProperty("QuanticReportLocation");
 		String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
 		String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()
 				? reportLocationFromSystemProperty

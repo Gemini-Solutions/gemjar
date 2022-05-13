@@ -44,23 +44,25 @@ public class GemEcoUpload {
             JsonArray tc_steps = (JsonArray) suite.getAsJsonObject().get("TestStep_Details").getAsJsonObject().get(tc_run_id).getAsJsonObject().get("steps");
 
 
-            for (int j = 0; j < tc_steps.size(); j++) {
-                tc_steps.get(j).getAsJsonObject().addProperty("desc", tc_steps.get(j).getAsJsonObject().get("description").getAsString());
-                tc_steps.get(j).getAsJsonObject().remove("description");
-            }
+//            for (int j = 0; j < tc_steps.size(); j++) {
+////                tc_steps.get(j).getAsJsonObject().addProperty("desc", tc_steps.get(j).getAsJsonObject().get("description").getAsString());
+////                tc_steps.get(j).getAsJsonObject().remove("description");
+//                tc_steps.get(j).getAsJsonObject().addProperty("dummy","dummy");
+//
+//            }
 
             Set<String> tc_step_keys = new HashSet<String>();
             for (int j = 0; j < tc_steps.size(); j++) {
                 tc_step_keys = Sets.union(tc_steps.get(j).getAsJsonObject().keySet(), tc_step_keys);
             }
 
-            for (int j = 0; j < tc_steps.size(); j++) {
-                for (String k : tc_step_keys) {
-                    if (!tc_steps.get(j).getAsJsonObject().keySet().contains(k)) {
-                        tc_steps.get(j).getAsJsonObject().addProperty(k, "");
-                    }
-                }
-            }
+//            for (int j = 0; j < tc_steps.size(); j++) {
+//                for (String k : tc_step_keys) {
+//                    if (!tc_steps.get(j).getAsJsonObject().keySet().contains(k)) {
+//                        tc_steps.get(j).getAsJsonObject().addProperty(k, "");
+//                    }
+//                }
+//            }
             payload.add("steps", tc_steps);
             System.out.println("tc = " + payload.toString());
 

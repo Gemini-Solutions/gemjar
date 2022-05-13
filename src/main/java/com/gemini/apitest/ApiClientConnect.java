@@ -16,8 +16,7 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -143,7 +142,7 @@ public class ApiClientConnect {
 
 	// Main Function to execute the request as per requirement
 	private static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
-			String contentType, Map<String, String> headers, boolean isReporting) {
+												   String contentType, Map<String, String> headers, boolean isReporting) {
 		Authenticator.setDefault(new MyAuthenticator());
 		HttpURLConnection httpsCon;
 
@@ -160,7 +159,7 @@ public class ApiClientConnect {
 					: (HttpURLConnection) requestUrl.openConnection();
 
 			httpsCon.setRequestProperty("Content-Type", "application/json");
-			if (contentType != null && contentType != "json") {
+			if (contentType != null && contentType.toLowerCase() != "json") {
 				httpsCon.setRequestProperty("Content-Type", "multipart/form-data");
 			}
 
@@ -176,74 +175,70 @@ public class ApiClientConnect {
 					httpsCon.setRequestProperty(set.getKey(), set.getValue());
 				}
 
-				// Setting Other headers if not present in Headers
-//                if (!headers.containsKey("accept")) {
-//                    httpsCon.setRequestProperty("accept", "application/json, text/plain, */*");
-//                }
 			}
 
 			method = method.toUpperCase();
 			switch (method) {
-			case "POST": {
-				try {
+				case "POST": {
+					try {
 
-					httpsCon.setRequestMethod("POST");
-					httpsCon.setReadTimeout(100000);
-					writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
-					break;
+						httpsCon.setRequestMethod("POST");
+						httpsCon.setReadTimeout(100000);
+						writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
+						break;
 
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
+
 				}
+				case "PUT": {
+					try {
+						httpsCon.setRequestMethod("PUT");
+						httpsCon.setReadTimeout(100000);
+						writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
+						break;
 
-			}
-			case "PUT": {
-				try {
-					httpsCon.setRequestMethod("PUT");
-					httpsCon.setReadTimeout(100000);
-					writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
-					break;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
 
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
 				}
+				case "PATCH": {
+					try {
 
-			}
-			case "PATCH": {
-				try {
+						httpsCon.setRequestMethod("POST");
+						httpsCon.setRequestProperty("X-HTTP-Method-Override", "PATCH");
+						httpsCon.setReadTimeout(100000);
+						writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
+						break;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
 
-					httpsCon.setRequestMethod("POST");
-					httpsCon.setRequestProperty("X-HTTP-Method-Override", "PATCH");
-					httpsCon.setReadTimeout(100000);
-					writeDataToOutputStream(httpsCon.getOutputStream(), requestPayload);
-					break;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
 				}
+				case "GET": {
+					try {
+						httpsCon.setRequestMethod("GET");
+						break;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
 
-			}
-			case "GET": {
-				try {
-					httpsCon.setRequestMethod("GET");
-					break;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
 				}
-
-			}
-			case "DELETE": {
-				try {
-					httpsCon.setRequestMethod("DELETE");
-					break;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return null;
+				case "DELETE": {
+					try {
+						httpsCon.setRequestMethod("DELETE");
+						break;
+					} catch (Exception e) {
+						e.printStackTrace();
+						return null;
+					}
 				}
-			}
 			}
 
 			requestHeaders = httpsCon.getHeaderFields().toString();
@@ -294,19 +289,19 @@ public class ApiClientConnect {
 	}
 
 	public static JsonObject putRequestWithReporting(String step, String url, String requestPayload,
-			String contentType) {
+													 String contentType) {
 		JsonObject response = executeCreateRequest(step, "PUT", url, requestPayload, contentType, null, true);
 		return response;
 	}
 
 	public static JsonObject putRequest(String url, String requestPayload, String contentType,
-			Map<String, String> headers) {
+										Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(null, "PUT", url, requestPayload, contentType, headers, false);
 		return response;
 	}
 
 	public static JsonObject putRequestWithReporting(String step, String url, String requestPayload, String contentType,
-			Map<String, String> headers) {
+													 Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(step, "PUT", url, requestPayload, contentType, headers, true);
 		return response;
 	}
@@ -318,19 +313,19 @@ public class ApiClientConnect {
 	}
 
 	public static JsonObject postRequestWithReporting(String step, String url, String requestPayload,
-			String contentType) {
+													  String contentType) {
 		JsonObject response = executeCreateRequest(step, "POST", url, requestPayload, contentType, null, true);
 		return response;
 	}
 
 	public static JsonObject postRequest(String url, String requestPayload, String contentType,
-			Map<String, String> headers) {
+										 Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(null, "POST", url, requestPayload, contentType, headers, false);
 		return response;
 	}
 
 	public static JsonObject postRequestWithReporting(String step, String url, String requestPayload,
-			String contentType, Map<String, String> headers) {
+													  String contentType, Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(step, "POST", url, requestPayload, contentType, headers, true);
 		return response;
 	}
@@ -342,19 +337,19 @@ public class ApiClientConnect {
 	}
 
 	public static JsonObject patchRequestWithReporting(String step, String url, String requestPayload,
-			String contentType) {
+													   String contentType) {
 		JsonObject response = executeCreateRequest(step, "PATCH", url, requestPayload, contentType, null, true);
 		return response;
 	}
 
 	public static JsonObject patchRequest(String url, String requestPayload, String contentType,
-			Map<String, String> headers) {
+										  Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(null, "PATCH", url, requestPayload, contentType, null, false);
 		return response;
 	}
 
 	public static JsonObject patchRequestWithReporting(String step, String url, String requestPayload,
-			String contentType, Map<String, String> headers) {
+													   String contentType, Map<String, String> headers) {
 		JsonObject response = executeCreateRequest(step, "PATCH", url, requestPayload, contentType, null, true);
 		return response;
 	}
@@ -384,7 +379,7 @@ public class ApiClientConnect {
 	// Method to execute request for File requestPayload with contentType and
 	// headers
 	public static JsonObject createRequest(String step, String method, String url, File requestPayload,
-			String contentType, Map<String, String> headers) {
+										   String contentType, Map<String, String> headers) {
 		StringBuilder payload = new StringBuilder();
 		try {
 			FileReader fr = new FileReader(requestPayload);
@@ -405,14 +400,14 @@ public class ApiClientConnect {
 
 	// Method to execute request for File requestPayload without contentType
 	public static JsonObject createRequest(String method, String url, String requestPayload,
-			Map<String, String> headers) {
+										   Map<String, String> headers) {
 		JsonObject responseJson = executeCreateRequest(null, method, url, requestPayload.toString(), null, headers,
 				false);
 		return responseJson;
 	}
 
 	public static JsonObject createRequestWithReporting(String step, String method, String url, String requestPayload,
-			Map<String, String> headers) {
+														Map<String, String> headers) {
 		JsonObject responseJson = executeCreateRequest(step, method, url, requestPayload.toString(), null, headers,
 				true);
 		return responseJson;
@@ -420,13 +415,13 @@ public class ApiClientConnect {
 
 	// Method to execute CreateRequest()
 	public static JsonObject CreateRequest(String method, String url, File requestPayload,
-			Map<String, String> headers) {
+										   Map<String, String> headers) {
 		JsonObject responseJson = createRequest(null, method, url, requestPayload, null, headers);
 		return responseJson;
 	}
 
 	public static JsonObject createRequestWithReporting(String step, String method, String url, File requestPayload,
-			Map<String, String> headers) {
+														Map<String, String> headers) {
 		JsonObject responseJson = executeCreateRequest(step, method, url, requestPayload.toString(), null, headers,
 				true);
 		return responseJson;
@@ -438,19 +433,18 @@ public class ApiClientConnect {
 		JsonArray responseJson = new JsonArray();
 		for (int i = 0; i < req.size(); i++) {
 			JsonObject test = (JsonObject) req.get(i);
-			String step = test.get("Test_Name").getAsString();
-			String method = test.get("Method").getAsString();
-			String url = test.get("Url").getAsString();
+			String step = test.get("test_name").getAsString();
+			String method = test.get("method").getAsString();
+			String url = test.get("endpoint").getAsString();
 			int expectedStatus = test.get("expected_status").getAsInt();
 			String payload = null;
 			Map<String, String> headers = new HashMap<String, String>();
 			Map<String, String> parameters = new HashMap<String, String>();
+			boolean isValidationRequired = false;
+			JsonObject validationQueries = null;
 
-			if (test.has("payload")) {
-				payload = test.get("payload").getAsJsonObject().toString();
-
-
-
+			if (test.has("request_body")) {
+				payload = test.get("request_body").toString();
 			}
 
 			if (test.has("headers")) {
@@ -463,6 +457,11 @@ public class ApiClientConnect {
 				url = ParameterizedUrl.getParameterizedUrl(url, parameters);
 			}
 
+			if(test.has("post_validation")){
+				validationQueries = test.get("post_validation").getAsJsonObject();
+				isValidationRequired = true;
+			}
+
 			try {
 				JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
 				responseJson.add(response);
@@ -472,10 +471,10 @@ public class ApiClientConnect {
 				String responseMessage = response.get("responseMessage").getAsString();
 
 				JsonElement responseBody = null;
-				if (response.has("responseError")) {
-					responseBody = response.get("responseError");
-				} else {
+				if (response.has("responseError") && response.get("responseError").isJsonNull()) {
 					responseBody = response.get("responseBody");
+				} else {
+					responseBody = response.get("responseError");
 				}
 
 				GemTestReporter.addTestStep("<b>Request: " + step + "</b>",
@@ -502,6 +501,23 @@ public class ApiClientConnect {
 								STATUS.FAIL);
 					}
 				}
+
+				if(isValidationRequired){
+					Set<String> keySet = validationQueries.keySet();
+					Iterator keys = keySet.iterator();
+//					System.out.println("keySet ---> "+ keySet);
+					while (keys.hasNext()){
+						String query = keys.next().toString();
+						String targetQuery = validationQueries.get(query).getAsString();
+						//target.trim();
+						String[] targetArray = targetQuery.trim().split("\\s+");
+						String operator = targetArray[0].trim();
+						String target = targetArray[1].trim();
+						PostAssertion.postAssertion(response.get("responseBody"),query,operator,target);
+					}
+
+				}
+
 
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -76,36 +76,38 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
         return testCasesToRun;
     }
 
-    public static void initializeQuanticGlobalVariables() {
-        QuanticGlobalVar.quanticProperty = PropertyListeners
-                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
-        QuanticGlobalVar.projectName = getProjectName();
-        ProjectProperties.setProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-        QuanticGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-        QuanticGlobalVar.environment = getProjectEnvironment();
-        QuanticGlobalVar.reportName = getProjectReportName();
-        QuanticGlobalVar.testCaseFileName = getTestCaseFileName();
-        QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
-        QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
-        QuanticGlobalVar.browserInTest = getBrowserToTest();
-        if (QuanticGlobalVar.testCaseDataJsonPath != null) {
-            TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
-        } else {
-            TestCaseData
-                    .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
-        }
-        QuanticGlobalVar.reportLocation = getReportLocation();
-    }
+	public static void initializeQuanticGlobalVariables() {
+		QuanticGlobalVar.quanticProperty = PropertyListeners
+				.loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
+		QuanticGlobalVar.projectName = getProjectName();
+		ProjectProperties.setProjectProperties(
+				ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
+		QuanticGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
+				ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
+		QuanticGlobalVar.environment = getProjectEnvironment();
+		QuanticGlobalVar.reportName = getProjectReportName();
+		QuanticGlobalVar.testCaseFileName = getTestCaseFileName();
+		QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
+		QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
+		QuanticGlobalVar.browserInTest = getBrowserToTest();
+		String cucumberFlag = QuanticGlobalVar.quanticProperty.getProperty("cucumber");
+		if(cucumberFlag == null || !cucumberFlag.equalsIgnoreCase("y") ){
+		if (QuanticGlobalVar.testCaseDataJsonPath != null) {
+			TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
+		} else {
+			TestCaseData
+					.setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
+		}
+		}
+		QuanticGlobalVar.reportLocation = getReportLocation();
+	}
 
-    private static String getReportLocation() {
-        try {
-            String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
-            String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()
-                    ? reportLocationFromSystemProperty
-                    : (System.getProperty("user.dir") != null ? System.getProperty("user.dir") : "");
-
+	private static String getReportLocation() {
+		String systemQuanticReportLocation = System.getProperty("QuanticReportLocation");
+		String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
+		String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()
+				? reportLocationFromSystemProperty
+				: System.getProperty("user.dir");
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
             DateTimeFormatter hms = DateTimeFormatter.ofPattern("HHmmss");

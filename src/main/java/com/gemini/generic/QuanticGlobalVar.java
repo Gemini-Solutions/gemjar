@@ -26,4 +26,5 @@ public class QuanticGlobalVar {
 	public static String ccMail;
 	public static String mail;
 
+	public static String report_type;
 }

@@ -417,11 +417,15 @@ public class ApiClientConnect {
     @SuppressWarnings("unchecked")
     private static JsonArray healthCheckJson(JsonArray req) {
         JsonArray responseJson = new JsonArray();
+        Map<String, JsonElement> responseHashMap = new HashMap<String, JsonElement>();
         for (int i = 0; i < req.size(); i++) {
             JsonObject test = (JsonObject) req.get(i);
             String step = test.get("test_name").getAsString();
             String method = test.get("method").getAsString();
             String url = test.get("endpoint").getAsString();
+            if (url.contains("test_response")) {
+                url = Jenkins.Replace(url, responseHashMap);
+            }
             int expectedStatus = test.get("expected_status").getAsInt();
             String payload = null;
             Map<String, String> headers = new HashMap<String, String>();
@@ -431,27 +435,39 @@ public class ApiClientConnect {
 
             if (test.has("request_body")) {
                 payload = test.get("request_body").toString();
+                if (payload.contains("test_response")) {
+                    payload = Jenkins.Replace(payload, responseHashMap);
+                }
             }
 
             if (test.has("headers")) {
-
-                headers = (Map<String, String>) gson.fromJson(test.get("headers"), headers.getClass());
+                if (test.get("headers").toString().contains("test_response")) {
+                    headers = (Map<String, String>) gson.fromJson(Jenkins.Replace(test.get("headers").toString(), responseHashMap), headers.getClass());
+                } else {
+                    headers = (Map<String, String>) gson.fromJson(test.get("headers").toString(), headers.getClass());
+                }
             }
 
             if (test.has("parameters")) {
-                parameters = (Map<String, String>) gson.fromJson(test.get("parameters"), parameters.getClass());
+                parameters = (Map<String, String>) gson.fromJson(test.get("parameters").toString(), parameters.getClass());
+                if (test.get("parameters").toString().contains("test_response")) {
+                    parameters = (Map<String, String>) gson.fromJson(Jenkins.Replace(test.get("parameters").toString(), responseHashMap), parameters.getClass());
+                }
                 url = ParameterizedUrl.getParameterizedUrl(url, parameters);
             }
 
             if (test.has("post_validation")) {
                 validationQueries = test.get("post_validation").getAsJsonObject();
+                if (test.get("post_validation").getAsJsonObject().toString().contains("test_response")) {
+                    validationQueries = JsonParser.parseString(Jenkins.Replace(test.get("post_validation").getAsJsonObject().toString(), responseHashMap)).getAsJsonObject();
+                }
                 isValidationRequired = true;
             }
 
             try {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
-
+                responseHashMap.put("test_response_" + i, response);
                 String executionTime = response.get("execTime").getAsString();
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = response.get("responseMessage").getAsString();
@@ -462,10 +478,11 @@ public class ApiClientConnect {
                 } else {
                     responseBody = response.get("responseError");
                 }
-
                 GemTestReporter.addTestStep("<b>Request: " + step + "</b>",
                         "<b>Request Url :</b>" + url + "<br> <b>RequestHeaders :</b>" + requestHeaders, STATUS.INFO);
-
+                if (!(payload == null)) {
+                    GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
+                }
                 int actualStatus = response.get("status").getAsInt();
                 if (expectedStatus != 0) {
                     String description = "<b>Actual Status: </b>" + actualStatus + "<br> <b>Expected Status: </b>"
@@ -519,7 +536,7 @@ public class ApiClientConnect {
                                     }
                                 }
                                 if (!f) {
-                                    GemTestReporter.addTestStep("DeepSearch of key ~ " + deepSearchQuery, "DeepSearch Failed <BR> Expected value does not match actual value <BR> Expected value ~ "+target, STATUS.FAIL);
+                                    GemTestReporter.addTestStep("DeepSearch of key ~ " + deepSearchQuery, "DeepSearch Failed <BR> Expected value does not match actual value <BR> Expected value ~ " + target, STATUS.FAIL);
                                 }
                             }
                         } else {

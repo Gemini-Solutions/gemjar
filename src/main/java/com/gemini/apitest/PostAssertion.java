@@ -76,4 +76,29 @@ public class PostAssertion {
         }
         return null;
     }
+
+    public static String postAssertion(JsonElement responseBody, String query) {
+        boolean flag = true;
+        JsonElement temp = responseBody;
+        String tempQuery = query;
+
+        while (flag) {
+            int startIndex = query.indexOf("(");
+            int endIndex = query.indexOf(")");
+            String key = query.substring(startIndex + 1, endIndex);
+
+            temp = PostAssertion.getLeftQuery(temp, key);
+
+            query = query.substring(endIndex + 1);
+
+            if (
+                    query.length() <= 0) {
+                flag = false;
+            }
+        }
+
+        return temp.getAsString();
+    }
+
+
 }

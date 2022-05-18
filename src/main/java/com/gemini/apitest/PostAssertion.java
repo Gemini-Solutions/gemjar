@@ -61,6 +61,7 @@ public class PostAssertion {
                 }
             }
         } catch (NullPointerException e){
+            GemTestReporter.addTestStep("Some error occurred in Post Assertion", "Some error occurred <BR>error message ~ "+e.getMessage(), STATUS.FAIL);
             e.printStackTrace();
         }
     }

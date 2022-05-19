@@ -1,6 +1,7 @@
 package com.gemini.apitest;
 
 import com.gemini.generic.ParameterizedUrl;
+import com.gemini.generic.QuanticGlobalVar;
 import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import com.google.gson.*;
@@ -434,10 +435,15 @@ public class ApiClientConnect {
             JsonObject validationQueries = null;
 
             if (test.has("request_body")) {
-                payload = test.get("request_body").toString();
-                if (payload.contains("test_response")) {
-                    payload = Jenkins.Replace(payload, responseHashMap);
-                }
+                payload= String.valueOf(test.get("request_body").getAsJsonObject());
+//                if (payload.contains("test_response")) {
+//                    payload = Jenkins.Replace(payload, responseHashMap);
+//                }
+                payload = String.valueOf(VariableReplacement.result(JsonParser.parseString(payload)));
+                GemTestReporter.addTestStep("Payload",payload,STATUS.INFO);
+//                payload = test.get("request_body").toString();
+
+
             }
 
             if (test.has("headers")) {
@@ -468,6 +474,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
+                QuanticGlobalVar.globalResponseHM=responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = response.get("responseMessage").getAsString();

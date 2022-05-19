@@ -2,7 +2,9 @@ package com.gemini.generic;
 
 import com.google.gson.JsonElement;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class QuanticGlobalVar {
@@ -29,6 +31,8 @@ public class QuanticGlobalVar {
 	public static String mail;
 
 	public static String report_type;
+
+	public static Map<String,JsonElement> globalResponseHM;
 
 	public static JsonElement suiteDetail;
 }

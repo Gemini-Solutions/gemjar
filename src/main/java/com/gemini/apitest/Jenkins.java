@@ -2,13 +2,11 @@ package com.gemini.apitest;
 
 import com.google.gson.JsonElement;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Jenkins {
 
-    public static String Replace(String value, Map hashMap){
-
+    public static String Replace(String value, Map hashMap) {
         while(value.contains("#")){
             int startIndex = value.indexOf("#");//akash#garg#
             int endIndex = value.substring(startIndex + 1).indexOf("#") + startIndex + 1;

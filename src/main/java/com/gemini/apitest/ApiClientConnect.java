@@ -422,6 +422,9 @@ public class ApiClientConnect {
         for (int i = 0; i < req.size(); i++) {
             JsonObject test = (JsonObject) req.get(i);
             String step = test.get("test_name").getAsString();
+            // Start Report
+            GemTestReporter.startTestCase(step, "Health Check", false);
+
             String method = test.get("method").getAsString();
             String url = test.get("endpoint").getAsString();
             if (url.contains("test_response")) {
@@ -435,12 +438,12 @@ public class ApiClientConnect {
             JsonObject validationQueries = null;
 
             if (test.has("request_body")) {
-                payload= String.valueOf(test.get("request_body").getAsJsonObject());
+                payload = String.valueOf(test.get("request_body").getAsJsonObject());
 //                if (payload.contains("test_response")) {
 //                    payload = Jenkins.Replace(payload, responseHashMap);
 //                }
                 payload = String.valueOf(VariableReplacement.result(JsonParser.parseString(payload)));
-                GemTestReporter.addTestStep("Payload",payload,STATUS.INFO);
+//                GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
 //                payload = test.get("request_body").toString();
 
 
@@ -474,7 +477,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                QuanticGlobalVar.globalResponseHM=responseHashMap;
+                QuanticGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = response.get("responseMessage").getAsString();
@@ -557,6 +560,8 @@ public class ApiClientConnect {
                 e.printStackTrace();
                 GemTestReporter.addTestStep("Some error occurred", "Some error occurred", STATUS.FAIL);
             }
+            //end Report
+            GemTestReporter.endTestCase();
         }
 
         return responseJson;

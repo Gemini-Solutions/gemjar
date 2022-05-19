@@ -103,6 +103,7 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
 	}
 
 	private static String getReportLocation() {
+        try{
 		String systemQuanticReportLocation = System.getProperty("QuanticReportLocation");
 		String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
 		String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()

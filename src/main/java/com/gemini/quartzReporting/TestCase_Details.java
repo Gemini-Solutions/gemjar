@@ -10,8 +10,8 @@ import com.google.gson.JsonElement;
 class TestCase_Details {
 
 	private String tc_run_id;
-	private float start_time;
-	private float end_time;
+	private long start_time;
+	private long end_time;
 	private String name;
 	private String category;
 	private String log_file;
@@ -109,11 +109,11 @@ class TestCase_Details {
 		this.tc_run_id = tc_run_id;
 	}
 
-	public void setStart_time(float start_time) {
+	public void setStart_time(long start_time) {
 		this.start_time = start_time;
 	}
 
-	public void setEnd_time(float end_time) {
+	public void setEnd_time(long end_time) {
 		this.end_time = end_time;
 	}
 

@@ -1,16 +1,14 @@
 package com.gemini.quartzReporting;
 
+import com.gemini.generic.QuanticGlobalVar;
+import com.google.gson.*;
+import org.apache.commons.codec.binary.Base64;
+
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import com.gemini.generic.QuanticGlobalVar;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.apache.commons.codec.binary.Base64;
+import java.util.UUID;
 
 public class GemTestReporter {
 
@@ -23,8 +21,7 @@ public class GemTestReporter {
     private static QuartzReporting reporting;
 
     public static void startSuite(String projectName, String env) {
-        String s_run_id = projectName + "_" + GemReportingUtility.getCurrentTimeInMilliSecond() + "_"
-                + env.toUpperCase();
+        String s_run_id = projectName + "_" + env.toUpperCase() + "_" + UUID.randomUUID();
         suiteDetails = new Suits_Details(s_run_id, projectName, env);
         reporting = new QuartzReporting(suiteDetails);
     }
@@ -66,7 +63,8 @@ public class GemTestReporter {
 
     public synchronized static void endTestCase() {
         testCase_Details.get().setStatus(steps.get());
-        testCase_Details.get().endTestCase();
+        testCase_Details.get().setEnd_time(Instant.now().toEpochMilli());
+//        testCase_Details.get().endTestCase();
         System.out.println(testCase_Details.get().toString());
         suiteDetails.addTestCaseDetail(testCase_Details.get());
 
@@ -99,9 +97,10 @@ public class GemTestReporter {
         endTimeDetail.addProperty("value", testCase_Details.get().getEnd_time());
         endTimeDetail.addProperty("type", "date");
         executionTimeDetail.add("EXECUTION ENDED ON", endTimeDetail);
-
+//        float start_t = testCase_Details.get().getStart_time();
+//        float end_t = testCase_Details.get().getEnd_time();
         executionTimeDetail.addProperty("EXECUTION DURATION",
-                (testCase_Details.get().getEnd_time() - testCase_Details.get().getStart_time()) / 1000 + " seconds");
+                (testCase_Details.get().getEnd_time()+1 - testCase_Details.get().getStart_time()) / 1000 + " seconds");
         metaData.add(executionTimeDetail);
         metaData.add(getStepStats());
 

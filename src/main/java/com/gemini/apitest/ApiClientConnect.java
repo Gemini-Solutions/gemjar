@@ -130,7 +130,7 @@ public class ApiClientConnect {
     // Main Function to execute the request as per requirement
     private static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
                                                    String contentType, Map<String, String> headers, boolean isReporting) {
-        url = url.replace(" ","%20");
+        url = url.replace(" ", "%20");
         Authenticator.setDefault(new MyAuthenticator());
         HttpURLConnection httpsCon;
 
@@ -474,6 +474,12 @@ public class ApiClientConnect {
                 isValidationRequired = true;
             }
 
+            GemTestReporter.addTestStep("<b>Request: " + step + "</b>",
+                    "<b>Request Url :</b>" + url + "<br> <b>RequestHeaders :</b>" + headers, STATUS.INFO);
+            if (!(payload == null)) {
+                GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
+            }
+
             try {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
@@ -481,7 +487,12 @@ public class ApiClientConnect {
                 QuanticGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
                 String requestHeaders = response.get("requestHeaders").getAsString();
-                String responseMessage = response.get("responseMessage").getAsString();
+                String responseMessage = null;
+
+                if (!response.get("responseMessage").isJsonNull()) {
+                    responseMessage = response.get("responseMessage").getAsString();
+                }
+
 
                 JsonElement responseBody = null;
                 if (response.has("responseError") && response.get("responseError").isJsonNull()) {
@@ -489,11 +500,11 @@ public class ApiClientConnect {
                 } else {
                     responseBody = response.get("responseError");
                 }
-                GemTestReporter.addTestStep("<b>Request: " + step + "</b>",
-                        "<b>Request Url :</b>" + url + "<br> <b>RequestHeaders :</b>" + requestHeaders, STATUS.INFO);
-                if (!(payload == null)) {
-                    GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
-                }
+//                GemTestReporter.addTestStep("<b>Request: " + step + "</b>",
+//                        "<b>Request Url :</b>" + url + "<br> <b>RequestHeaders :</b>" + requestHeaders, STATUS.INFO);
+//                if (!(payload == null)) {
+//                    GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
+//                }
                 int actualStatus = response.get("status").getAsInt();
                 if (expectedStatus != 0) {
                     String description = "<b>Actual Status: </b>" + actualStatus + "<br> <b>Expected Status: </b>"

@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.UUID;
 
 public class VariableReplacement {
 
@@ -85,6 +86,12 @@ public class VariableReplacement {
 
                 int po = xToY(firstpart, secondpart);
                 return start + po + end;
+            }
+            else if (up.contains("UUID"))
+            {
+                UUID uuid = UUID.randomUUID();
+                String uuidAsString = uuid.toString();
+                return start + uuidAsString +end;
             }
         }
         return null;

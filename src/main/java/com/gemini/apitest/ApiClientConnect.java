@@ -130,6 +130,7 @@ public class ApiClientConnect {
     // Main Function to execute the request as per requirement
     private static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
                                                    String contentType, Map<String, String> headers, boolean isReporting) {
+
         url = url.replace(" ", "%20");
         Authenticator.setDefault(new MyAuthenticator());
         HttpURLConnection httpsCon;

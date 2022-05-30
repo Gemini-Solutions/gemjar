@@ -1,12 +1,12 @@
 package com.gemini.generic;
 
+import com.gemini.listners.PropertyListeners;
+
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.gemini.listners.PropertyListeners;
 
 public class QuanticGenericUtils extends QuanticGlobalVar {
     public static void setKerberosRequiredConfiguration() {

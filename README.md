@@ -1,2 +1,2 @@
-# Quantic
-Quantic java Framework QA
+# GemJar
+GemJar java Automation Framework QA

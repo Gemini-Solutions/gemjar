@@ -1,26 +1,17 @@
 package com.gemini.generic;
 
+import com.gemini.quartzReporting.GemTestReporter;
+import com.gemini.quartzReporting.STATUS;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import com.gemini.quartzReporting.GemTestReporter;
-import com.gemini.quartzReporting.STATUS;
 
 public class DriverAction {
 
@@ -465,7 +456,7 @@ public class DriverAction {
             DriverManager.getWebDriver().switchTo().alert().sendKeys(input);
             if (report) {
                 GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Successful <BR> input ~ " + input,
-                        STATUS.PASS,s);
+                        STATUS.PASS, s);
             }
         } catch (Exception e) {
             GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Failed <BR> input ~ " + input,

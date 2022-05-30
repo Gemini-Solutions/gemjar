@@ -100,7 +100,7 @@ public class GemTestReporter {
 //        float start_t = testCase_Details.get().getStart_time();
 //        float end_t = testCase_Details.get().getEnd_time();
         long ex_dur = testCase_Details.get().getEnd_time() - testCase_Details.get().getStart_time();
-        executionTimeDetail.addProperty("EXECUTION DURATION",((float)ex_dur/1000)+" seconds");
+        executionTimeDetail.addProperty("EXECUTION DURATION", ((float) ex_dur / 1000) + " seconds");
         metaData.add(executionTimeDetail);
         metaData.add(getStepStats());
 

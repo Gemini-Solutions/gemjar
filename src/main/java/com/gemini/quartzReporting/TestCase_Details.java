@@ -1,11 +1,11 @@
 package com.gemini.quartzReporting;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 class TestCase_Details {
 

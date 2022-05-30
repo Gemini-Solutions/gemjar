@@ -22,10 +22,10 @@ public class GemEcoUpload {
         payload.addProperty("s_report_type", s_report_type);
         payload.remove("report_type");
         payload.add("miscData", new JsonArray());
-        System.out.println("GemEcoUpload = " + payload.toString());
+//        System.out.println("GemEcoUpload = " + payload.toString());
 
         JsonObject response = ApiClientConnect.postRequest("http://ec2-3-108-218-108.ap-south-1.compute.amazonaws.com:8080/suiteexe", payload.toString(), "json");
-        System.out.println("GemEcoupload respone = " + response.toString());
+//        System.out.println("GemEcoupload respone = " + response.toString());
         postStepRecord();
 
     }
@@ -49,10 +49,10 @@ public class GemEcoUpload {
             }
 
             payload.add("steps", tc_steps);
-            System.out.println("tc = " + payload.toString());
+//            System.out.println("tc = " + payload.toString());
 
-            JsonObject response = ApiClientConnect.postRequest("http://ec2-3-108-218-108.ap-south-1.compute.amazonaws.com:8080/testcase",payload.toString(),"json");
-            System.out.println("tc respone = " + response.toString());
+            JsonObject response = ApiClientConnect.postRequest("http://ec2-3-108-218-108.ap-south-1.compute.amazonaws.com:8080/testcase", payload.toString(), "json");
+//            System.out.println("tc respone = " + response.toString());
 
         }
 

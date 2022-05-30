@@ -65,7 +65,7 @@ public class GemTestReporter {
         testCase_Details.get().setStatus(steps.get());
         testCase_Details.get().setEnd_time(Instant.now().toEpochMilli());
 //        testCase_Details.get().endTestCase();
-        System.out.println(testCase_Details.get().toString());
+//        System.out.println(testCase_Details.get().toString());
         suiteDetails.addTestCaseDetail(testCase_Details.get());
 
         String testCaseRunID = testCase_Details.get().getTc_run_id();
@@ -99,8 +99,8 @@ public class GemTestReporter {
         executionTimeDetail.add("EXECUTION ENDED ON", endTimeDetail);
 //        float start_t = testCase_Details.get().getStart_time();
 //        float end_t = testCase_Details.get().getEnd_time();
-        executionTimeDetail.addProperty("EXECUTION DURATION",
-                (testCase_Details.get().getEnd_time()+1 - testCase_Details.get().getStart_time()) / 1000 + " seconds");
+        long ex_dur = testCase_Details.get().getEnd_time() - testCase_Details.get().getStart_time();
+        executionTimeDetail.addProperty("EXECUTION DURATION",((float)ex_dur/1000)+" seconds");
         metaData.add(executionTimeDetail);
         metaData.add(getStepStats());
 

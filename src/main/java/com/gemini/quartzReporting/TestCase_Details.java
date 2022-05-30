@@ -59,11 +59,11 @@ class TestCase_Details {
 		return tc_run_id;
 	}
 
-	public float getStart_time() {
+	public long getStart_time() {
 		return start_time;
 	}
 
-	public float getEnd_time() {
+	public long getEnd_time() {
 		return end_time;
 	}
 

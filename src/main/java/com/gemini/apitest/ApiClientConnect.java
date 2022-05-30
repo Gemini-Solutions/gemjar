@@ -430,7 +430,7 @@ public class ApiClientConnect {
             String method = test.get("method").getAsString();
             String url = test.get("endpoint").getAsString();
             if (url.contains("test_response")) {
-                url = Jenkins.Replace(url, responseHashMap);
+                url = ApiHealthCheckUtils.Replace(url, responseHashMap);
             }
             int expectedStatus = test.get("expected_status").getAsInt();
             String payload = null;
@@ -444,7 +444,7 @@ public class ApiClientConnect {
 //                if (payload.contains("test_response")) {
 //                    payload = Jenkins.Replace(payload, responseHashMap);
 //                }
-                payload = String.valueOf(VariableReplacement.result(JsonParser.parseString(payload)));
+                payload = String.valueOf(ApiHealthCheckUtils.result(JsonParser.parseString(payload)));
 //                GemTestReporter.addTestStep("Payload", payload, STATUS.INFO);
 //                payload = test.get("request_body").toString();
 
@@ -453,7 +453,7 @@ public class ApiClientConnect {
 
             if (test.has("headers")) {
                 if (test.get("headers").toString().contains("test_response")) {
-                    headers = (Map<String, String>) gson.fromJson(Jenkins.Replace(test.get("headers").toString(), responseHashMap), headers.getClass());
+                    headers = (Map<String, String>) gson.fromJson(ApiHealthCheckUtils.Replace(test.get("headers").toString(), responseHashMap), headers.getClass());
                 } else {
                     headers = (Map<String, String>) gson.fromJson(test.get("headers").toString(), headers.getClass());
                 }
@@ -462,7 +462,7 @@ public class ApiClientConnect {
             if (test.has("parameters")) {
                 parameters = (Map<String, String>) gson.fromJson(test.get("parameters").toString(), parameters.getClass());
                 if (test.get("parameters").toString().contains("test_response")) {
-                    parameters = (Map<String, String>) gson.fromJson(Jenkins.Replace(test.get("parameters").toString(), responseHashMap), parameters.getClass());
+                    parameters = (Map<String, String>) gson.fromJson(ApiHealthCheckUtils.Replace(test.get("parameters").toString(), responseHashMap), parameters.getClass());
                 }
                 url = ParameterizedUrl.getParameterizedUrl(url, parameters);
             }
@@ -470,7 +470,7 @@ public class ApiClientConnect {
             if (test.has("post_validation")) {
                 validationQueries = test.get("post_validation").getAsJsonObject();
                 if (test.get("post_validation").getAsJsonObject().toString().contains("test_response")) {
-                    validationQueries = JsonParser.parseString(Jenkins.Replace(test.get("post_validation").getAsJsonObject().toString(), responseHashMap)).getAsJsonObject();
+                    validationQueries = JsonParser.parseString(ApiHealthCheckUtils.Replace(test.get("post_validation").getAsJsonObject().toString(), responseHashMap)).getAsJsonObject();
                 }
                 isValidationRequired = true;
             }
@@ -543,7 +543,7 @@ public class ApiClientConnect {
                         if (query.toUpperCase().contains("DEEPSEARCH")) {
                             String deepSearchQuery = query.substring(query.indexOf("(") + 1, query.indexOf(")"));
                             // Call the deepSearch function here with keyname as "deepSearchQuery"
-                            JsonArray result = DeepSearch.deepSearch(response.get("responseBody"), deepSearchQuery);
+                            JsonArray result = ApiHealthCheckUtils.deepSearch(response.get("responseBody"), deepSearchQuery);
                             if (result.size() == 0) {
                                 GemTestReporter.addTestStep("DeepSearch of key ~ " + deepSearchQuery, "DeepSearch Failed <BR> No Such Key Exist in Response", STATUS.FAIL);
                             } else {
@@ -553,7 +553,7 @@ public class ApiClientConnect {
                                     String value = result.get(j).getAsJsonObject().keySet().iterator().next();
                                     String loc = result.get(j).getAsJsonObject().get(value).getAsString();
 //									GemTestReporter.addTestStep("DeepSearch of key ~ '"+deepSearchQuery+"'","Value of the Key ~ "+value+"<BR> Location ~ "+loc,STATUS.INFO);
-                                    Boolean temp = DeepSearch.assertionMethods(deepSearchQuery, value, target, operator, loc);
+                                    Boolean temp = ApiHealthCheckUtils.assertionMethods(deepSearchQuery, value, target, operator, loc);
                                     if (temp) {
                                         f = temp;
                                     }
@@ -564,7 +564,7 @@ public class ApiClientConnect {
                             }
                         } else {
 
-                            PostAssertion.postAssertion(response.get("responseBody"), query, operator, target);
+                            ApiHealthCheckUtils.postAssertion(response.get("responseBody"), query, operator, target);
                         }
                     }
 

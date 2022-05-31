@@ -245,7 +245,7 @@ public class ApiHealthCheckUtils {
             String t = ApiHealthCheckUtils.Replace("#" + buffer + "#", QuanticGlobalVar.globalResponseHM);
             return start + t + end;
         } else {
-            String[] arrays = buffer.split("-", 3);
+            String[] arrays = buffer.split("-", 2);
             String user = arrays[0];
             String functionKey = user.toUpperCase();
             if (functionKey.contains("UNIQUE")) {

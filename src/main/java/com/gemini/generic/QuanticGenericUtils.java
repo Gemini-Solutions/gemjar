@@ -96,6 +96,12 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
             TestCaseData
                     .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
         }
+        if (QuanticGlobalVar.projectProperty.getProperty("sendMail") == null) {
+            QuanticGlobalVar.sendMail = "true";
+        } else {
+            QuanticGlobalVar.sendMail = QuanticGlobalVar.projectProperty.getProperty("sendMail");
+
+        }
         QuanticGlobalVar.reportLocation = getReportLocation();
         initializeMailingList();
     }

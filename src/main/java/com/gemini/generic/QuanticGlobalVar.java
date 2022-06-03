@@ -34,4 +34,6 @@ public class QuanticGlobalVar {
     public static Map<String, JsonElement> globalResponseHM;
 
     public static JsonElement suiteDetail;
+
+    public static String sendMail;
 }

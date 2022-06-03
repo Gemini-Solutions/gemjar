@@ -20,67 +20,69 @@ import java.util.zip.ZipOutputStream;
 public class EmailReport {
 
     public static void sendReport() {
-        String suiteStatus = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
-        Long suiteStart = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
-        Date date = new Date(suiteStart);
-        DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        if (!QuanticGlobalVar.sendMail.equalsIgnoreCase("false")) {
+            String suiteStatus = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
+            Long suiteStart = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
+            Date date = new Date(suiteStart);
+            DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 //        format.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
-        String formattedDate = format.format(date);
-        String message = "GEMJAR Email Report ";
-        String subject = suiteStatus + " | " + QuanticGlobalVar.environment.toUpperCase() + " | " + QuanticGlobalVar.projectName + " | GEM JAR AUTOMATED SUITE RUN EXECUTED ON " + formattedDate;
-        String toMail = QuanticGlobalVar.mail;
-        String ccMail = QuanticGlobalVar.ccMail;
-        String conditionMail = toMail;
-        if (suiteStatus.equals("PASS")) {
-            conditionMail = QuanticGlobalVar.passMail;
-        } else {
-            conditionMail = QuanticGlobalVar.failMail;
-        }
-        String fromMail = "helloraghavhere1111@gmail.com";
-        String host = "smtp.gmail.com";
-        Properties properties = System.getProperties();
-        properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
-        Session session = Session.getInstance(properties, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("helloraghavhere1111@gmail.com", "fdbeedwjkywcjdzc");
-            }
-        });
-//        session.setDebug(true);
-        MimeMessage reportMessage = new MimeMessage(session);
-        try {
-            reportMessage.setFrom(fromMail);
-            reportMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
-            reportMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(ccMail));
-            reportMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(conditionMail));
-            reportMessage.setSubject(subject);
-            String path = "";
-            if (QuanticGlobalVar.report_type.equals("UI Automation")) {
-                String zipLoc = QuanticGlobalVar.reportLocation + ".zip";
-                zipFolder(Paths.get(QuanticGlobalVar.reportLocation), Paths.get(zipLoc));
-                path = zipLoc;
+            String formattedDate = format.format(date);
+            String message = "GEMJAR Email Report ";
+            String subject = suiteStatus + " | " + QuanticGlobalVar.environment.toUpperCase() + " | " + QuanticGlobalVar.projectName + " | GEM JAR AUTOMATED SUITE RUN EXECUTED ON " + formattedDate;
+            String toMail = QuanticGlobalVar.mail;
+            String ccMail = QuanticGlobalVar.ccMail;
+            String conditionMail = toMail;
+            if (suiteStatus.equals("PASS")) {
+                conditionMail = QuanticGlobalVar.passMail;
             } else {
-                path = QuanticGlobalVar.reportLocation + "/" + QuanticGlobalVar.reportName + ".html";
+                conditionMail = QuanticGlobalVar.failMail;
             }
-            MimeMultipart multipart = new MimeMultipart();
-            MimeBodyPart textContent = new MimeBodyPart();
-            MimeBodyPart fileContent = new MimeBodyPart();
+            String fromMail = "helloraghavhere1111@gmail.com";
+            String host = "smtp.gmail.com";
+            Properties properties = System.getProperties();
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+            Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication("helloraghavhere1111@gmail.com", "fdbeedwjkywcjdzc");
+                }
+            });
+//        session.setDebug(true);
+            MimeMessage reportMessage = new MimeMessage(session);
             try {
-                textContent.setText(message);
-                File reportLocation = new File(path);
-                fileContent.attachFile(reportLocation);
-                multipart.addBodyPart(textContent);
-                multipart.addBodyPart(fileContent);
+                reportMessage.setFrom(fromMail);
+                reportMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(toMail));
+                reportMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(ccMail));
+                reportMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(conditionMail));
+                reportMessage.setSubject(subject);
+                String path = "";
+                if (QuanticGlobalVar.report_type.equals("UI Automation")) {
+                    String zipLoc = QuanticGlobalVar.reportLocation + ".zip";
+                    zipFolder(Paths.get(QuanticGlobalVar.reportLocation), Paths.get(zipLoc));
+                    path = zipLoc;
+                } else {
+                    path = QuanticGlobalVar.reportLocation + "/" + QuanticGlobalVar.reportName + ".html";
+                }
+                MimeMultipart multipart = new MimeMultipart();
+                MimeBodyPart textContent = new MimeBodyPart();
+                MimeBodyPart fileContent = new MimeBodyPart();
+                try {
+                    textContent.setText(message);
+                    File reportLocation = new File(path);
+                    fileContent.attachFile(reportLocation);
+                    multipart.addBodyPart(textContent);
+                    multipart.addBodyPart(fileContent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                reportMessage.setContent(multipart);
+                Transport.send(reportMessage);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            reportMessage.setContent(multipart);
-            Transport.send(reportMessage);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

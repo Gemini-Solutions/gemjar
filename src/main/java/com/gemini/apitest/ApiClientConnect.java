@@ -255,8 +255,8 @@ public class ApiClientConnect {
                         "<b>Request Url :</b>" + url + "<br> <b>RequestHeaders :</b>" + requestHeaders, STATUS.INFO);
 
                 String description = "<b>Status : </b>" + statusCode + "<br> <b>ResponseMessage : </b>"
-                        + responseMessage + "<br> <b>ResponseBody: </b>" + responseBody + "<br> <b>ExecutionTime: </b>"
-                        + executionTime + " ms";
+                        + responseMessage + "<br> <b>ExecutionTime: </b>"
+                        + executionTime + " ms <br>"+" <b>ResponseBody: </b>" + responseBody ;
                 if (statusCode >= 200 && statusCode < 300) {
                     GemTestReporter.addTestStep("<b>Response: " + step + "</b>", description, STATUS.PASS);
                 } else {
@@ -510,8 +510,8 @@ public class ApiClientConnect {
                 if (expectedStatus != 0) {
                     String description = "<b>Actual Status: </b>" + actualStatus + "<br> <b>Expected Status: </b>"
                             + expectedStatus + "<br> <b>ResponseMessage : </b>" + responseMessage
-                            + "<br> <b>ResponseBody: </b>" + responseBody.toString() + "<br> <b>ExecutionTime: </b>"
-                            + executionTime;
+                            + "<br> <b>ExecutionTime: </b>"
+                            + executionTime+ "<br> <b>ResponseBody: </b>" + responseBody.toString() ;
                     if (expectedStatus == actualStatus) {
                         GemTestReporter.addTestStep("<b>Response: " + step + "</b>", description, STATUS.PASS);
                     } else {

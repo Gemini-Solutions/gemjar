@@ -97,6 +97,7 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
                     .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
         }
         QuanticGlobalVar.reportLocation = getReportLocation();
+        initializeMailingList();
     }
 
     private static String getReportLocation() {
@@ -118,8 +119,9 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
     }
 
     public static void initializeMailingList() {
+        String mailProperties = QuanticGlobalVar.projectName + "_Mail.properties";
         QuanticGlobalVar.mailingProperty = PropertyListeners.loadProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + "+_Mail.properties"));
+                ClassLoader.getSystemResourceAsStream(mailProperties));
         QuanticGlobalVar.failMail = mailingProperty.getProperty("failMail");
         QuanticGlobalVar.ccMail = mailingProperty.getProperty("ccMail");
         QuanticGlobalVar.passMail = mailingProperty.getProperty("passMail");

@@ -19,7 +19,6 @@ class TestCase_Details {
 	private String user;
 	private String machine;
 	private String result_file;
-	private String product_type = "GEMJAR";
 	private boolean ignore;
 
 	public TestCase_Details(String testcaseName, String category, String user, boolean ignore) {
@@ -30,6 +29,7 @@ class TestCase_Details {
 		this.user = user;
 		this.machine = GemReportingUtility.getMachineName();
 		this.ignore = ignore;
+
 	}
 
 	public String toString() {
@@ -95,9 +95,6 @@ class TestCase_Details {
 		return result_file;
 	}
 
-	public String getProduct_type() {
-		return product_type;
-	}
 
 	public boolean getIgnore() {
 		return ignore;
@@ -162,9 +159,6 @@ class TestCase_Details {
 		this.result_file = result_file;
 	}
 
-	public void setProduct_type(String product_type) {
-		this.product_type = product_type;
-	}
 
 	public void setIgnore(boolean ignore) {
 		this.ignore = ignore;

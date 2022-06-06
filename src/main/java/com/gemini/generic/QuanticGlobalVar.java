@@ -36,4 +36,8 @@ public class QuanticGlobalVar {
     public static JsonElement suiteDetail;
 
     public static String sendMail;
+
+    public static String fromMail = "gemecosystem.gemjar@gmail.com";
+
+    public static String fromMailPwd = "ftgyheqqoqtwvzes";
 }

@@ -37,7 +37,7 @@ public class EmailReport {
             } else {
                 conditionMail = QuanticGlobalVar.failMail;
             }
-            String fromMail = "helloraghavhere1111@gmail.com";
+            String fromMail = QuanticGlobalVar.fromMail;
             String host = "smtp.gmail.com";
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", host);
@@ -47,7 +47,7 @@ public class EmailReport {
             Session session = Session.getInstance(properties, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("helloraghavhere1111@gmail.com", "fdbeedwjkywcjdzc");
+                    return new PasswordAuthentication(QuanticGlobalVar.fromMail, QuanticGlobalVar.fromMailPwd);
                 }
             });
 //        session.setDebug(true);

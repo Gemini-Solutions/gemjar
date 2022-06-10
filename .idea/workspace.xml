@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="">
+    <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="merge QuanticGenericUtils.java">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +58,14 @@
       <option name="presentableId" value="Default" />
       <updated>1652173013863</updated>
     </task>
+    <task id="LOCAL-00001" summary="merge QuanticGenericUtils.java">
+      <created>1654851596478</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1654851596478</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -69,5 +78,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="merge QuanticGenericUtils.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge QuanticGenericUtils.java" />
   </component>
 </project>

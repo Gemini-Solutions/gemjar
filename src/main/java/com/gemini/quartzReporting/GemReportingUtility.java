@@ -1,15 +1,14 @@
 package com.gemini.quartzReporting;
 
+import com.gemini.generic.QuanticGlobalVar;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.charset.Charset;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 public class GemReportingUtility {
 
@@ -18,7 +17,8 @@ public class GemReportingUtility {
             String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("QuanticReport.html"),
                     Charset.defaultCharset());
             htmlTemplate = htmlTemplate.replace("var obj = '';", "var obj = " + suiteDetail + ";");
-            FileUtils.writeStringToFile(new File(reportLoc + "/GemEcoTestReport_" + Instant.now().toEpochMilli() + ".html"), htmlTemplate, Charset.defaultCharset());
+            QuanticGlobalVar.reportName="GemEcoTestReport_" + Instant.now().toEpochMilli();
+            FileUtils.writeStringToFile(new File(reportLoc + "/"+ QuanticGlobalVar.reportName + ".html"), htmlTemplate, Charset.defaultCharset());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

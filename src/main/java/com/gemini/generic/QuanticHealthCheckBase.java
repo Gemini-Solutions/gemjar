@@ -9,11 +9,11 @@ import org.testng.annotations.*;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
-public class QuanticAPIBase extends QuanticGenericUtils {
+public class QuanticHealthCheckBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
         initializeQuanticGlobalVariables();
-        QuanticGlobalVar.report_type = "Api Automation";
+        QuanticGlobalVar.report_type = "Health Check Automation";
         String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
         InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
         ProjectApiUrl.initializeApiUrl(ip);
@@ -34,13 +34,13 @@ public class QuanticAPIBase extends QuanticGenericUtils {
         String testcaseName = method.getName();
         String testClassName = method.getClass().getSimpleName();
         TestCaseData.setCurrentTestCaseData(testcaseName);
-        GemTestReporter.startTestCase(testcaseName, testClassName, false);
+//		GemTestReporter.startTestCase(testcaseName, testClassName, false);
     }
 
     @AfterMethod
     public void afterMethod() {
         // Report
-        GemTestReporter.endTestCase();
+//		GemTestReporter.endTestCase();
     }
 
     @AfterClass
@@ -57,7 +57,6 @@ public class QuanticAPIBase extends QuanticGenericUtils {
         GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
         GemEcoUpload.postNewRecord();
         EmailReport.sendReport();
-
     }
 
 }

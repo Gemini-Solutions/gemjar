@@ -1,12 +1,12 @@
 package com.gemini.generic;
 
+import com.gemini.listners.PropertyListeners;
+
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.gemini.listners.PropertyListeners;
 
 public class QuanticGenericUtils extends QuanticGlobalVar {
     public static void setKerberosRequiredConfiguration() {
@@ -76,39 +76,47 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
         return testCasesToRun;
     }
 
-	public static void initializeQuanticGlobalVariables() {
-		QuanticGlobalVar.quanticProperty = PropertyListeners
-				.loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
-		QuanticGlobalVar.projectName = getProjectName();
-		ProjectProperties.setProjectProperties(
-				ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-		QuanticGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
-				ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-		QuanticGlobalVar.environment = getProjectEnvironment();
-		QuanticGlobalVar.reportName = getProjectReportName();
-		QuanticGlobalVar.testCaseFileName = getTestCaseFileName();
-		QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
-		QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
-		QuanticGlobalVar.browserInTest = getBrowserToTest();
-		String cucumberFlag = QuanticGlobalVar.quanticProperty.getProperty("cucumber");
-		if(cucumberFlag == null || !cucumberFlag.equalsIgnoreCase("y") ){
-		if (QuanticGlobalVar.testCaseDataJsonPath != null) {
-			TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
-		} else {
-			TestCaseData
-					.setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
-		}
-		}
-		QuanticGlobalVar.reportLocation = getReportLocation();
-	}
+    public static void initializeQuanticGlobalVariables() {
+//        System.out.println("Main Branch");
+        QuanticGlobalVar.quanticProperty = PropertyListeners
+                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
+        QuanticGlobalVar.projectName = getProjectName();
+        ProjectProperties.setProjectProperties(
+                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
+        QuanticGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
+                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
+        QuanticGlobalVar.environment = getProjectEnvironment();
+        QuanticGlobalVar.reportName = getProjectReportName();
+        QuanticGlobalVar.testCaseFileName = getTestCaseFileName();
+        QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
+        QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
+        QuanticGlobalVar.browserInTest = getBrowserToTest();
+        String cucumberFlag = QuanticGlobalVar.quanticProperty.getProperty("cucumber");
+        if(cucumberFlag == null || !cucumberFlag.equalsIgnoreCase("y") ){
+            if (QuanticGlobalVar.testCaseDataJsonPath != null) {
+                TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
+            } else {
+                TestCaseData
+                        .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
+            }
+        }
+        if (QuanticGlobalVar.projectProperty.getProperty("sendMail") == null) {
+            QuanticGlobalVar.sendMail = "true";
+        } else {
+            QuanticGlobalVar.sendMail = QuanticGlobalVar.projectProperty.getProperty("sendMail");
+        }
+        QuanticGlobalVar.reportLocation = getReportLocation();
+        initializeMailingList();
+    }
 
-	private static String getReportLocation() {
-        try{
-		String systemQuanticReportLocation = System.getProperty("QuanticReportLocation");
-		String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
-		String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()
-				? reportLocationFromSystemProperty
-				: System.getProperty("user.dir");
+    private static String getReportLocation() {
+        try {
+            String systemQuanticReportLocation = System.getProperty("QuanticReportLocation");
+            String reportLocationFromSystemProperty = ProjectProperties.getProperty("reportLocation");
+            String loc = reportLocationFromSystemProperty != null && !reportLocationFromSystemProperty.isEmpty()
+                    ? reportLocationFromSystemProperty
+                    : (System.getProperty("user.dir") != null ? System.getProperty("user.dir") : "");
+
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyy");
             DateTimeFormatter hms = DateTimeFormatter.ofPattern("HHmmss");
@@ -121,8 +129,9 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
     }
 
     public static void initializeMailingList() {
+        String mailProperties = QuanticGlobalVar.projectName + "_Mail.properties";
         QuanticGlobalVar.mailingProperty = PropertyListeners.loadProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + "+_Mail.properties"));
+                ClassLoader.getSystemResourceAsStream(mailProperties));
         QuanticGlobalVar.failMail = mailingProperty.getProperty("failMail");
         QuanticGlobalVar.ccMail = mailingProperty.getProperty("ccMail");
         QuanticGlobalVar.passMail = mailingProperty.getProperty("passMail");

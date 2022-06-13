@@ -31,6 +31,10 @@ public class GemTestReporter {
         testCase_Details.set(new TestCase_Details(testcaseName, category, ignore));
     }
 
+//    public static void apiExecutionTime(String time){
+//        testCase_Details.get().setExecution_time(time);
+//    }
+
     public static void addTestStep(String stepTitle, String stepDescription, STATUS status) {
         addTestStep(stepTitle, stepDescription, status, new HashMap<String, String>());
     }
@@ -49,8 +53,8 @@ public class GemTestReporter {
     public static void addTestStep(String stepTitle, String stepDescription, STATUS status,
                                    Map<String, String> extraKeys) {
         JsonObject step = new JsonObject();
-        step.addProperty("title", "<b>" + stepTitle + "</b>");
-        step.addProperty("description", stepDescription);
+        step.addProperty("Title", "<b>" + stepTitle + "</b>");
+        step.addProperty("Description", stepDescription);
         step.addProperty("status", status.name());
         if (extraKeys != null) {
             Set<String> extraKeySet = extraKeys.keySet();

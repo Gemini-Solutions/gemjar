@@ -128,10 +128,11 @@ public class ApiClientConnect {
     }
 
     // Main Function to execute the request as per requirement
-    private static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
+    public static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
                                                    String contentType, Map<String, String> headers, boolean isReporting) {
 
-        url = url.replace(" ", "%20");
+//        url = url.replace(" ", "%20");
+        url = ParameterizedUrl.getParameterizedUrl(url,new HashMap<>());
         Authenticator.setDefault(new MyAuthenticator());
         HttpURLConnection httpsCon;
 
@@ -487,6 +488,7 @@ public class ApiClientConnect {
                 responseHashMap.put("test_response_" + i, response);
                 QuanticGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
+//                GemTestReporter.apiExecutionTime(executionTime);
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = null;
 

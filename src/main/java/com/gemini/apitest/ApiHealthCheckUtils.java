@@ -10,6 +10,9 @@ import com.google.gson.JsonParser;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class ApiHealthCheckUtils {
@@ -284,10 +287,142 @@ public class ApiHealthCheckUtils {
                 String uuidAsString = uuid.toString();
                 return start + uuidAsString + end;
             }
+            else if (functionKey.contains("DATE"))
+            {
+                String input=arrays[1];
+                char search = '-';             // Character to search is '-'.
+
+                int count=0;
+                for(int i=0; i<input.length(); i++)
+                {
+                    if(input.charAt(i) == search)
+                        count++;
+                }
+                if (count==3||count==4)
+                {
+                    String rightstring = arrays[1];
+                    String[] arr=rightstring.split("-",4);
+                    String pattern=arr[0];
+                    String code=arr[1];
+                    String add=arr[2];
+                    int value= Integer.parseInt(arr[3]);
+                    String resultantdate=  date(pattern,code,add,value);
+                    return start + resultantdate + end;
+                }
+                else if (count==1)
+                {
+                    String rightstring = arrays[1];
+                    String[] arr=rightstring.split("-",2);
+                    String pattern=arr[0];
+                    String code=arr[1];
+                    String resultantdate=  date(pattern,code);
+                    return start + resultantdate + end;
+                }
+            }
+            else if (functionKey.contains("RANDOM"))
+            {
+                String str=arrays[1];
+                String number=numfromlist(str);
+                return start+number+end;
+            }
         }
         return null;
     }
+    ////////////////////////////////////////////////////////////////
+    public static String date(String pattern, String code, String timeadd,int value)
+    {
+        // ZoneId zoneId = ZoneId.of(number);
+        //  DateFormat df = new SimpleDateFormat(hash);
+        //  return zoneId;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
 
+        ZoneId zoneId = ZoneId.of(code);
+
+        ZonedDateTime now = ZonedDateTime.now(zoneId);
+
+        String Timeadd=timeadd.toUpperCase();
+        if (Timeadd.equals("H")) {
+            ZonedDateTime zonedDateTime1 = now.plusHours(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.equals("MIN")){
+            ZonedDateTime zonedDateTime1 = now.plusMinutes(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.equals("MON"))
+        {
+            ZonedDateTime zonedDateTime1 = now.plusMonths(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.contains("DAY"))
+        {
+            ZonedDateTime zonedDateTime1 = now.plusDays(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.contains("SEC"))
+        {
+            ZonedDateTime zonedDateTime1 = now.plusSeconds(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.contains("WEEK"))
+        {
+            ZonedDateTime zonedDateTime1 = now.plusWeeks(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        else if (Timeadd.contains("YEAR"))
+        {
+            ZonedDateTime zonedDateTime1 = now.plusYears(value);
+
+            String dateTimeString = zonedDateTime1.format(formatter);
+            return dateTimeString;
+        }
+        return null;
+    }
+    public static String date(String hash, String number)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(hash);
+
+        ZoneId zoneId = ZoneId.of(number);
+
+        ZonedDateTime now = ZonedDateTime.now(zoneId);
+        String dateTimeString = now.format(formatter);
+        return dateTimeString;
+    }
+
+    ////////////////////////////////////////////////////////
+
+    public static String numfromlist(String numbers)
+    {
+        numbers.replace("[","");
+        numbers.replace("]","");
+        int length=numbers.length();
+
+        String newone=numbers.substring(1,length-1);
+
+        String[] getnum=newone.split(",");
+        List<?>li= Arrays.stream(getnum).toList();
+
+        Random rand = new Random();
+        String randomElement = (String) li.get(rand.nextInt(li.size()));
+        //System.out.println(randomElement);
+
+        return randomElement;
+    }
+
+
+    ////////////////////////////////////////////////
     public static int xToY(int min, int max) {
         int random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
         return random_int;

@@ -4,6 +4,7 @@ import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.File;
 import java.io.IOException;
@@ -727,4 +728,156 @@ public class DriverAction {
         }
 
     }
+
+    // close Driver or Current tab
+
+    public static void closeCurrentTab(){
+        try{
+            DriverManager.closeDriver();
+        }catch(Exception e){
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Close Current Tab","Some error occured",STATUS.PASS);
+        }
+    }
+
+    //Double click mouse event
+
+    public static void doubleClick(WebElement element, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(By locator, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(By locator) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Double Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(By locator, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(WebElement element, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(WebElement element) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Double Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    // Right Click or Context click
+
+    public static void rightClick(WebElement element, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Right Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(WebElement element, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(WebElement element) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Right Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
 }

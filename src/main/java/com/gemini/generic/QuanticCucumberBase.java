@@ -74,7 +74,7 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 
     @AfterAll
     public void afterAll() {
-        GemTestReporter.endSuite();
+        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
     }
 
 }

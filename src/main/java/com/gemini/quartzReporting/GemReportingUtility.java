@@ -34,7 +34,7 @@ public class GemReportingUtility {
     }
 
     public static long getCurrentTimeInMilliSecond() {
-        return Instant.now().toEpochMilli();
+        return Instant.now().getEpochSecond();
     }
 
     public static String getMachineName() {

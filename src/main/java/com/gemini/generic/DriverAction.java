@@ -1125,5 +1125,49 @@ public class DriverAction {
                     DriverAction.takeSnapShot());
         }
     }
+    public static void clearText(WebElement element){
+        try {
+            DriverManager.getWebDriver().findElement((By) element).clear();
+            GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(By element){
+        try {
+            DriverManager.getWebDriver().findElement(element).clear();
+            GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(WebElement element,boolean report){
+        try {
+            DriverManager.getWebDriver().findElement((By) element).clear();
+            if(report){
+                GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(By element,boolean report){
+        try {
+            DriverManager.getWebDriver().findElement(element).clear();
+            if(report){
+                GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
 
 }

@@ -6,10 +6,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class GemEcoUpload {
+
+    static String userName = "akash.garg";
+    static String token= "079738be-d85c-4e2d-86fc-518207efb4be1656580812983";
 
     public static void postNewRecord() {
         JsonElement suite = QuanticGlobalVar.suiteDetail.deepCopy();
@@ -23,9 +28,11 @@ public class GemEcoUpload {
         payload.remove("report_type");
         payload.add("miscData", new JsonArray());
 //        System.out.println("GemEcoUpload = " + payload.toString());
-
-        JsonObject response = ApiClientConnect.postRequest("http://ec2-3-108-218-108.ap-south-1.compute.amazonaws.com:8080/suiteexe", payload.toString(), "json");
-//        System.out.println("GemEcoupload respone = " + response.toString());
+        Map<String,String > header = new HashMap<String,String>();
+        header.put("username",userName);
+        header.put("bridgeToken",token);
+        JsonObject response = ApiClientConnect.postRequest("https://apis.gemecosystem.com/suiteexe", payload.toString(), "json",header);
+        System.out.println("GemEcoupload respone = " + response.toString());
         postStepRecord();
 
     }
@@ -50,9 +57,11 @@ public class GemEcoUpload {
 
             payload.add("steps", tc_steps);
 //            System.out.println("tc = " + payload.toString());
-
-            JsonObject response = ApiClientConnect.postRequest("http://ec2-3-108-218-108.ap-south-1.compute.amazonaws.com:8080/testcase", payload.toString(), "json");
-//            System.out.println("tc respone = " + response.toString());
+            Map<String,String > header = new HashMap<String,String>();
+            header.put("username",userName);
+            header.put("bridgeToken",token);
+            JsonObject response = ApiClientConnect.postRequest("https://apis.gemecosystem.com/testcase", payload.toString(), "json",header);
+            System.out.println("tc respone = " + response.toString());
 
         }
 

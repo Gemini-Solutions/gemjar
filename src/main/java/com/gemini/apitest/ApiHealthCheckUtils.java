@@ -327,6 +327,9 @@ public class ApiHealthCheckUtils {
                 String number=numfromlist(str);
                 return start+number+end;
             }
+            else{
+
+            }
         }
         return null;
     }

@@ -67,7 +67,7 @@ public class GemTestReporter {
 
     public synchronized static void endTestCase() {
         testCase_Details.get().setStatus(steps.get());
-        testCase_Details.get().setEnd_time(Instant.now().getEpochSecond());
+        testCase_Details.get().setEnd_time(Instant.now().getEpochSecond()*1000);
 //        testCase_Details.get().endTestCase();
 //        System.out.println(testCase_Details.get().toString());
         suiteDetails.addTestCaseDetail(testCase_Details.get());

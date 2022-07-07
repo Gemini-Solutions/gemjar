@@ -34,7 +34,7 @@ public class GemReportingUtility {
     }
 
     public static long getCurrentTimeInMilliSecond() {
-        return Instant.now().getEpochSecond();
+        return Instant.now().getEpochSecond()*1000;
     }
 
     public static String getMachineName() {
@@ -47,6 +47,7 @@ public class GemReportingUtility {
 
     public static String getCurrentUserName() {
         return System.getProperty("user.name");
+        //get from properties from same as login user name from jewel
     }
 
 }

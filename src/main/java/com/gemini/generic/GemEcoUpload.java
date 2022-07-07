@@ -32,7 +32,7 @@ public class GemEcoUpload {
         header.put("username",userName);
         header.put("bridgeToken",token);
         JsonObject response = ApiClientConnect.postRequest("https://apis.gemecosystem.com/suiteexe", payload.toString(), "json",header);
-        System.out.println("GemEcoupload respone = " + response.toString());
+//        System.out.println("GemEcoupload respone = " + response.toString());
         postStepRecord();
 
     }
@@ -61,7 +61,7 @@ public class GemEcoUpload {
             header.put("username",userName);
             header.put("bridgeToken",token);
             JsonObject response = ApiClientConnect.postRequest("https://apis.gemecosystem.com/testcase", payload.toString(), "json",header);
-            System.out.println("tc respone = " + response.toString());
+//            System.out.println("tc respone = " + response.toString());
 
         }
 

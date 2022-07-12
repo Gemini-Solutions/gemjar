@@ -1,6 +1,6 @@
 package com.gemini.quartzReporting;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -17,8 +17,8 @@ public class GemReportingUtility {
             String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("QuanticReport.html"),
                     Charset.defaultCharset());
             htmlTemplate = htmlTemplate.replace("var obj = '';", "var obj = " + suiteDetail + ";");
-            QuanticGlobalVar.reportName="GemEcoTestReport_" + Instant.now().toEpochMilli();
-            FileUtils.writeStringToFile(new File(reportLoc + "/"+ QuanticGlobalVar.reportName + ".html"), htmlTemplate, Charset.defaultCharset());
+            GemJARGlobalVar.reportName="GemEcoTestReport_" + Instant.now().toEpochMilli();
+            FileUtils.writeStringToFile(new File(reportLoc + "/"+ GemJARGlobalVar.reportName + ".html"), htmlTemplate, Charset.defaultCharset());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

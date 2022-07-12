@@ -1,6 +1,6 @@
 package com.gemini.quartzReporting;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -32,8 +32,8 @@ class Suits_Details {
         this.initiated_by = GemReportingUtility.getCurrentUserName();
         this.run_mode = System.getProperty("os.name");
         this.run_type = "ON DEMAND";
-        if (QuanticGlobalVar.report_type != null) {
-            this.report_type = QuanticGlobalVar.report_type;
+        if (GemJARGlobalVar.report_type != null) {
+            this.report_type = GemJARGlobalVar.report_type;
         } else {
             this.report_type = "Automation";
         }

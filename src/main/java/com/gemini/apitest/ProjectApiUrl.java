@@ -1,6 +1,6 @@
 package com.gemini.apitest;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,7 +12,7 @@ public class ProjectApiUrl {
     public static void initializeApiUrl() {
         try {
             properties = new Properties();
-            String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
+            String urlFileName = GemJARGlobalVar.projectName + "_" + GemJARGlobalVar.environment + "_Url.properties";
             properties.load(ClassLoader.getSystemResourceAsStream(urlFileName));
 
         } catch (IOException e) {

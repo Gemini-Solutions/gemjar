@@ -1,7 +1,7 @@
 package com.gemini.apitest;
 
 import com.gemini.generic.ParameterizedUrl;
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import com.google.gson.*;
@@ -128,7 +128,7 @@ public class ApiClientConnect {
     }
 
     // Main Function to execute the request as per requirement
-    private static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
+    public static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
                                                    String contentType, Map<String, String> headers, boolean isReporting) {
 
         url = url.replace(" ", "%20");
@@ -485,7 +485,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                QuanticGlobalVar.globalResponseHM = responseHashMap;
+                GemJARGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = null;

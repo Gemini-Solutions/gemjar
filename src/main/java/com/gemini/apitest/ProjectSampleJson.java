@@ -9,8 +9,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Set;
 
-// import generic.ProjectProperties
-
 public class ProjectSampleJson {
     private static HashMap<String, JsonElement> sampleJsonObjectMap = new HashMap<String, JsonElement>();
     private static HashMap<String, String> sampleJsonObjectStringMap = new HashMap<String, String>();

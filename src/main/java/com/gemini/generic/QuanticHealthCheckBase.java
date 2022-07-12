@@ -13,12 +13,12 @@ public class QuanticHealthCheckBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
         initializeQuanticGlobalVariables();
-        QuanticGlobalVar.report_type = "Health Check Automation";
-        String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
+        GemJARGlobalVar.report_type = "Health Check Automation";
+        String urlFileName = GemJARGlobalVar.projectName + "_" + GemJARGlobalVar.environment + "_Url.properties";
         InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
         ProjectApiUrl.initializeApiUrl(ip);
         ProjectSampleJson.loadSampleJson();
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+        GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
     }
 
     @BeforeTest
@@ -54,7 +54,7 @@ public class QuanticHealthCheckBase extends QuanticGenericUtils {
 
     @AfterSuite
     public void afterSuite() {
-        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+        GemTestReporter.endSuite(GemJARGlobalVar.reportLocation);
         GemEcoUpload.postNewRecord();
 //        EmailReport.sendReport();
     }

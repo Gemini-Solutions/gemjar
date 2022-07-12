@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanticGenericUtils extends QuanticGlobalVar {
+public class QuanticGenericUtils extends GemJARGlobalVar {
     public static void setKerberosRequiredConfiguration() {
         try {
             System.setProperty("java.security.krb5.conf",
@@ -25,7 +25,7 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
     public static String getProjectName() {
         try {
             String sysPropProjectName = System.getProperty("QuanticProjectName");
-            String mavenProjectName = QuanticGlobalVar.quanticProperty.getProperty("artifactId");
+            String mavenProjectName = GemJARGlobalVar.gemJARProperties.getProperty("artifactId");
             String projectName = sysPropProjectName != null ? sysPropProjectName
                     : mavenProjectName != null ? mavenProjectName : null;
             return projectName;
@@ -37,7 +37,7 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
 
     public static String getProjectEnvironment() {
         String sysPropEnvironment = System.getProperty("QuanticProjectEnvironment");
-        String environmentFromPropertiesFile = QuanticGlobalVar.projectProperty.getProperty("environment");
+        String environmentFromPropertiesFile = GemJARGlobalVar.projectProperty.getProperty("environment");
         String environment = sysPropEnvironment != null ? sysPropEnvironment
                 : environmentFromPropertiesFile != null ? environmentFromPropertiesFile : "beta";
         return environment;
@@ -45,19 +45,19 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
 
     public static String getProjectReportName() {
         String sysPropReportName = System.getProperty("QuanticReportName");
-        String reportNameFromPropFiles = QuanticGlobalVar.projectProperty.getProperty("reportName");
+        String reportNameFromPropFiles = GemJARGlobalVar.projectProperty.getProperty("reportName");
         String reportName = sysPropReportName != null ? sysPropReportName
                 : reportNameFromPropFiles != null ? reportNameFromPropFiles
-                : QuanticGlobalVar.projectName + " Test report";
+                : GemJARGlobalVar.projectName + " Test report";
         return reportName;
     }
 
     public static String getTestCaseFileName() {
         String sysTestCaseFileName = System.getProperty("QuanticTestCaseFileName");
-        String testCaseFileNameFromProjProp = QuanticGlobalVar.projectProperty.getProperty("testCaseFileName");
+        String testCaseFileNameFromProjProp = GemJARGlobalVar.projectProperty.getProperty("testCaseFileName");
         String testCaseFileName = sysTestCaseFileName != null ? sysTestCaseFileName
                 : testCaseFileNameFromProjProp != null ? testCaseFileNameFromProjProp
-                : QuanticGlobalVar.projectName + "_testCase.json";
+                : GemJARGlobalVar.projectName + "_testCase.json";
         return testCaseFileName;
     }
 
@@ -78,34 +78,34 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
 
     public static void initializeQuanticGlobalVariables() {
 //        System.out.println("Main Branch");
-        QuanticGlobalVar.quanticProperty = PropertyListeners
+        GemJARGlobalVar.gemJARProperties = PropertyListeners
                 .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
-        QuanticGlobalVar.projectName = getProjectName();
+        GemJARGlobalVar.projectName = getProjectName();
         ProjectProperties.setProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-        QuanticGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
-                ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.projectName + ".properties"));
-        QuanticGlobalVar.environment = getProjectEnvironment();
-        QuanticGlobalVar.reportName = getProjectReportName();
-        QuanticGlobalVar.testCaseFileName = getTestCaseFileName();
-        QuanticGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
-        QuanticGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
-        QuanticGlobalVar.browserInTest = getBrowserToTest();
-        String cucumberFlag = QuanticGlobalVar.quanticProperty.getProperty("cucumber");
+                ClassLoader.getSystemResourceAsStream(GemJARGlobalVar.projectName + ".properties"));
+        GemJARGlobalVar.projectProperty = PropertyListeners.loadProjectProperties(
+                ClassLoader.getSystemResourceAsStream(GemJARGlobalVar.projectName + ".properties"));
+        GemJARGlobalVar.environment = getProjectEnvironment();
+        GemJARGlobalVar.reportName = getProjectReportName();
+        GemJARGlobalVar.testCaseFileName = getTestCaseFileName();
+        GemJARGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
+        GemJARGlobalVar.testCasesToRun = getTestCasesToRunFromSystemProperties();
+        GemJARGlobalVar.browserInTest = getBrowserToTest();
+        String cucumberFlag = GemJARGlobalVar.gemJARProperties.getProperty("cucumber");
         if(cucumberFlag == null || !cucumberFlag.equalsIgnoreCase("y") ){
-            if (QuanticGlobalVar.testCaseDataJsonPath != null) {
-                TestCaseData.setProjectTestCaseData(QuanticGlobalVar.testCaseDataJsonPath);
+            if (GemJARGlobalVar.testCaseDataJsonPath != null) {
+                TestCaseData.setProjectTestCaseData(GemJARGlobalVar.testCaseDataJsonPath);
             } else {
                 TestCaseData
-                        .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName));
+                        .setProjectTestCaseData(ClassLoader.getSystemResourceAsStream(GemJARGlobalVar.testCaseFileName));
             }
         }
-        if (QuanticGlobalVar.projectProperty.getProperty("sendMail") == null) {
-            QuanticGlobalVar.sendMail = "true";
+        if (GemJARGlobalVar.projectProperty.getProperty("sendMail") == null) {
+            GemJARGlobalVar.sendMail = "true";
         } else {
-            QuanticGlobalVar.sendMail = QuanticGlobalVar.projectProperty.getProperty("sendMail");
+            GemJARGlobalVar.sendMail = GemJARGlobalVar.projectProperty.getProperty("sendMail");
         }
-        QuanticGlobalVar.reportLocation = getReportLocation();
+        GemJARGlobalVar.reportLocation = getReportLocation();
         initializeMailingList();
     }
 
@@ -129,18 +129,18 @@ public class QuanticGenericUtils extends QuanticGlobalVar {
     }
 
     public static void initializeMailingList() {
-        String mailProperties = QuanticGlobalVar.projectName + "_Mail.properties";
-        QuanticGlobalVar.mailingProperty = PropertyListeners.loadProjectProperties(
+        String mailProperties = GemJARGlobalVar.projectName + "_Mail.properties";
+        GemJARGlobalVar.mailingProperty = PropertyListeners.loadProjectProperties(
                 ClassLoader.getSystemResourceAsStream(mailProperties));
-        QuanticGlobalVar.failMail = mailingProperty.getProperty("failMail");
-        QuanticGlobalVar.ccMail = mailingProperty.getProperty("ccMail");
-        QuanticGlobalVar.passMail = mailingProperty.getProperty("passMail");
-        QuanticGlobalVar.mail = mailingProperty.getProperty("mail");
+        GemJARGlobalVar.failMail = mailingProperty.getProperty("failMail");
+        GemJARGlobalVar.ccMail = mailingProperty.getProperty("ccMail");
+        GemJARGlobalVar.passMail = mailingProperty.getProperty("passMail");
+        GemJARGlobalVar.mail = mailingProperty.getProperty("mail");
     }
 
     public static String getBrowserToTest() {
         String browserName = System.getProperty("QuanticBrowserName");
-        String browserNameFromPropertiesFile = QuanticGlobalVar.projectProperty.getProperty("browserName");
+        String browserNameFromPropertiesFile = GemJARGlobalVar.projectProperty.getProperty("browserName");
         String browser = browserName != null ? browserName
                 : browserNameFromPropertiesFile != null ? browserNameFromPropertiesFile : "chrome";
         return browser;

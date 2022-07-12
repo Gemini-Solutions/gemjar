@@ -50,8 +50,8 @@ public class GemJarMainClass extends QuanticGenericUtils {
                 GemEcoUpload.postNewRecord();
 
                 //Sending Email
-                String suiteStatus = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
-                Long suiteStart = QuanticGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
+                String suiteStatus = GemJARGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
+                Long suiteStart = GemJARGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
                 Date date = new Date(suiteStart);
                 DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
                 String formattedDate = format.format(date);
@@ -60,7 +60,7 @@ public class GemJarMainClass extends QuanticGenericUtils {
 
                 String toMail = System.getProperty("toMail");
                 if (!(toMail == null)) {
-                    String fromMail = QuanticGlobalVar.fromMail;
+                    String fromMail = GemJARGlobalVar.fromMail;
                     String host = "smtp.gmail.com";
                     Properties properties = System.getProperties();
                     properties.put("mail.smtp.host", host);
@@ -70,7 +70,7 @@ public class GemJarMainClass extends QuanticGenericUtils {
                     Session session = Session.getInstance(properties, new Authenticator() {
                         @Override
                         protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(QuanticGlobalVar.fromMail, QuanticGlobalVar.fromMailPwd);
+                            return new PasswordAuthentication(GemJARGlobalVar.fromMail, GemJARGlobalVar.fromMailPwd);
                         }
                     });
 //        session.setDebug(true);
@@ -82,7 +82,7 @@ public class GemJarMainClass extends QuanticGenericUtils {
                         reportMessage.setSubject(subject);
                         //String path = "";
 
-                        reportLocation = reportLocation + "/" + QuanticGlobalVar.reportName + ".html";
+                        reportLocation = reportLocation + "/" + GemJARGlobalVar.reportName + ".html";
 
                         MimeMultipart multipart = new MimeMultipart();
                         MimeBodyPart textContent = new MimeBodyPart();

@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 import org.testng.ITestNGMethod;
 import org.testng.annotations.DataProvider;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -24,10 +24,10 @@ public class QuanticDataProvider {
 			String methodName = testNGMethod.getMethodName();
 			String data;
 			Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			if (QuanticGlobalVar.testCaseDataJsonPath != null) {
-				data = new String(Files.readAllBytes(new File(QuanticGlobalVar.testCaseDataJsonPath).toPath()));
+			if (GemJARGlobalVar.testCaseDataJsonPath != null) {
+				data = new String(Files.readAllBytes(new File(GemJARGlobalVar.testCaseDataJsonPath).toPath()));
 			} else {
-				data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName),
+				data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(GemJARGlobalVar.testCaseFileName),
 						StandardCharsets.UTF_8);
 			}
 			JsonElement jsonElement = gson.fromJson(data, JsonElement.class);

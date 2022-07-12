@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -709,7 +707,7 @@ public class DriverAction {
 
     public static String takeSnapShot() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String fileWithPath = QuanticGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
+        String fileWithPath = GemJARGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
         WebDriver webdriver = DriverManager.getWebDriver();
         TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);

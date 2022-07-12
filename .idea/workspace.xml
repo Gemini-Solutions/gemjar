@@ -5,15 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="merge QuanticGenericUtils.java">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Assert.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Hooks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Request.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Response.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Runner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/ScenarioSteps.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Variables.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiClientConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiClientConnect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiHealthCheckUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiHealthCheckUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectApiUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectApiUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectSampleJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectSampleJson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/dataProvider/QuanticDataProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/dataProvider/QuanticDataProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/DriverAction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/DriverAction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/EmailReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/EmailReport.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemEcoUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemEcoUpload.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemJarMainClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemJarMainClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticCucumberBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticCucumberBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGlobalVar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemJARGlobalVar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/listners/QuanticTestngTestFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/listners/QuanticTestngTestFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/GemReportingUtility.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/GemReportingUtility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/GemTestReporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/GemTestReporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/Suits_Details.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/quartzReporting/Suits_Details.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -38,12 +70,18 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/akash/IdeaProjects/gemjar-Main/gemjar",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_opened_file_path": "C:/Users/vi.tiwari/Desktop/New Merging Folder/MAIN/gemjar/src/main/java/com/gemini/featureFrameWork",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vi.tiwari\Desktop\New Merging Folder\MAIN\gemjar\src\main\java\com\gemini\featureFrameWork" />
+    </key>
+  </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
       <command value="mvn dependency:tree" />
@@ -82,5 +120,20 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge QuanticGenericUtils.java" />
     <option name="LAST_COMMIT_MESSAGE" value="merge QuanticGenericUtils.java" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/Assert.java</url>
+          <line>22</line>
+          <properties class="com.gemini.featureFrameWork.Assert" method="assertIngnoreCaseEquals">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

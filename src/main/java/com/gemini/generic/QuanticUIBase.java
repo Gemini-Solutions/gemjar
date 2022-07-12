@@ -14,8 +14,8 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
         initializeQuanticGlobalVariables();
-        QuanticGlobalVar.report_type = "UI Automation";
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+        GemJARGlobalVar.report_type = "UI Automation";
+        GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
 
     }
 
@@ -23,7 +23,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeTest
     public void beforeTest(@Optional String browserName) {
         if (browserName != null) {
-            QuanticGlobalVar.browserInTest = browserName;
+            GemJARGlobalVar.browserInTest = browserName;
         }
     }
 
@@ -38,7 +38,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
         String testcaseName = method.getName();
         String testClassName = method.getClass().getSimpleName();
         GemTestReporter.startTestCase(testcaseName, testClassName, false);
-        DriverManager.initializeBrowser(QuanticGlobalVar.browserInTest);
+        DriverManager.initializeBrowser(GemJARGlobalVar.browserInTest);
         DriverAction.maximizeBrowser();
         DriverAction.setImplicitTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
         DriverAction.setPageLoadTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
@@ -65,7 +65,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @AfterSuite
     public void afterSuite() {
 
-        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+        GemTestReporter.endSuite(GemJARGlobalVar.reportLocation);
         GemEcoUpload.postNewRecord();
 //        EmailReport.sendReport();
 

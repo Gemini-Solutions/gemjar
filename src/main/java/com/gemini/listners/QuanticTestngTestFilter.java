@@ -12,7 +12,7 @@ import org.testng.IMethodInstance;
 import org.testng.IMethodInterceptor;
 import org.testng.ITestContext;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemJARGlobalVar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -24,15 +24,15 @@ public class QuanticTestngTestFilter implements IMethodInterceptor {
 	public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {
 		List<IMethodInstance> testCasesToRun = new ArrayList<IMethodInstance>();
 		String data = null;
-		if (QuanticGlobalVar.testCaseDataJsonPath != null) {
+		if (GemJARGlobalVar.testCaseDataJsonPath != null) {
 			try {
-				data = new String(Files.readAllBytes(new File(QuanticGlobalVar.testCaseDataJsonPath).toPath()));
+				data = new String(Files.readAllBytes(new File(GemJARGlobalVar.testCaseDataJsonPath).toPath()));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} else {
 			try {
-				data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName),
+				data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(GemJARGlobalVar.testCaseFileName),
 						StandardCharsets.UTF_8);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -41,7 +41,7 @@ public class QuanticTestngTestFilter implements IMethodInterceptor {
 		JsonElement jsonElement = gson.fromJson(data, JsonElement.class);
 		JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-		if (QuanticGlobalVar.testCasesToRun != null) {
+		if (GemJARGlobalVar.testCasesToRun != null) {
 			for (IMethodInstance iMethodInstance : methods) {
 				String methodName = iMethodInstance.getMethod().getConstructorOrMethod().getMethod().getName()
 						.toString();
@@ -50,7 +50,7 @@ public class QuanticTestngTestFilter implements IMethodInterceptor {
 						: null;
 				if ((methodJson != null) && (methodJson.get("runFlag") != null)) {
 					if ((methodJson.get("runFlag").getAsString().equalsIgnoreCase("Y")
-							&& QuanticGlobalVar.testCasesToRun.contains(methodName))) {
+							&& GemJARGlobalVar.testCasesToRun.contains(methodName))) {
 						testCasesToRun.add(iMethodInstance);
 					}
 				}

@@ -12,7 +12,7 @@ import java.util.Set;
 public class GemEcoUpload {
 
     public static void postNewRecord() {
-        JsonElement suite = QuanticGlobalVar.suiteDetail.deepCopy();
+        JsonElement suite = GemJARGlobalVar.suiteDetail.deepCopy();
         JsonObject payload = (JsonObject) suite.getAsJsonObject().get("Suits_Details");
         payload.remove("Testcase_Info");
         payload.remove("TestCase_Details");
@@ -31,7 +31,7 @@ public class GemEcoUpload {
     }
 
     public static void postStepRecord() {
-        JsonElement suite = QuanticGlobalVar.suiteDetail.deepCopy();
+        JsonElement suite = GemJARGlobalVar.suiteDetail.deepCopy();
         JsonArray testCaseDetails = suite.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("TestCase_Details").getAsJsonArray().deepCopy();
         String s_run_id = suite.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_run_id").getAsString();
         for (int i = 0; i < testCaseDetails.size(); i++) {

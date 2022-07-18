@@ -17,8 +17,8 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
 //        initializeQuanticGlobalVariables();
-        loadGemJarConfigData();
     GemJARGlobalVar.report_type = "UI Automation";
+        loadGemJarConfigData();
         GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
 
     }

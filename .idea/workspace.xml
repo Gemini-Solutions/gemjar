@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="remove SendMail">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gemjar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gemjar.iml" afterDir="false" />
+    <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="integrated jemgar-config.json to UIBase">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiClientConnect.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ApiClientConnect.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectApiUrl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectApiUrl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectSampleJson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/apitest/ProjectSampleJson.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/GemJarUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/GemJarUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemEcoUpload.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/GemEcoUpload.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticGenericUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/ProjectProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/ProjectProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticAPIBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticHealthCheckBase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,7 +42,7 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/akash/IdeaProjects/gemjar-Main/gemjar",
+    "last_opened_file_path": "/home/akash/IdeaProjects/gemeco_api/GemEcosystem_api-GeminiApi_Automation",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
@@ -71,7 +70,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654851596478</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="integrated jemgar-config.json to UIBase">
+      <created>1658122719023</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1658122719023</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -87,7 +93,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="merge QuanticGenericUtils.java" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge QuanticGenericUtils.java" />
+    <MESSAGE value="integrated jemgar-config.json to UIBase" />
+    <option name="LAST_COMMIT_MESSAGE" value="integrated jemgar-config.json to UIBase" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

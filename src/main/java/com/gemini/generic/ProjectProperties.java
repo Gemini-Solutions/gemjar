@@ -1,5 +1,7 @@
 package com.gemini.generic;
 
+import com.gemini.featureFrameWork.GemJarUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -32,7 +34,7 @@ public class ProjectProperties {
 
 	public static String getProperty(String key) {
 		try {
-			String value = projectProperties.getProperty(key);
+			String value = GemJarUtils.getGemJarConfigData(key).getAsString();
 			return value;
 		} catch (Exception e) {
 			e.printStackTrace();

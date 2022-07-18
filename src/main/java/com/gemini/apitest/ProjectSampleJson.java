@@ -9,15 +9,17 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Set;
 
+import static com.gemini.featureFrameWork.GemJarUtils.configJsonObject;
+
 public class ProjectSampleJson {
     private static HashMap<String, JsonElement> sampleJsonObjectMap = new HashMap<String, JsonElement>();
     private static HashMap<String, String> sampleJsonObjectStringMap = new HashMap<String, String>();
 
     public static void loadSampleJson() {
-        Set<String> projectPropertyKeys = ProjectProperties.getStringPropertyNames();
+        Set<String> projectPropertyKeys = configJsonObject.keySet();
         for (String key : projectPropertyKeys) {
             if (key.toLowerCase().contains("_samplejson")) {
-                String jsonPath = ProjectProperties.getProperty(key);
+                String jsonPath = configJsonObject.get(key).getAsString();
                 InputStream jsonInputStream = ClassLoader.getSystemResourceAsStream(jsonPath);
                 InputStreamReader jsonReader = new InputStreamReader(jsonInputStream);
                 JsonElement sampleJsonDataJsonElement = JsonParser.parseReader(jsonReader);

@@ -29,7 +29,7 @@ public class GemJarUtils extends GemJARGlobalVar {
 
     public static final String TESTCASEFILENAME = "testCaseFileName";
 
-    private static JsonObject configJsonObject = new JsonObject();
+    public static JsonObject configJsonObject = new JsonObject();
 
     public static void loadGemJarConfigData() {
         try {
@@ -115,8 +115,9 @@ public class GemJarUtils extends GemJARGlobalVar {
         GemJARGlobalVar.environment = getProjectEnvironment();
         GemJARGlobalVar.reportName = getProjectReportName();
         GemJARGlobalVar.reportLocation = getReportLocation();
-        GemJARGlobalVar.browserInTest = getBrowserToTest();
-
+        if(GemJARGlobalVar.report_type.equalsIgnoreCase("UI Automation")) {
+            GemJARGlobalVar.browserInTest = getBrowserToTest();
+        }
         ////
         GemJARGlobalVar.testCaseFileName = getTestCaseFileName();
         GemJARGlobalVar.testCaseDataJsonPath = System.getProperty("QuanticTestCaseDataJsonPath");
@@ -152,7 +153,12 @@ public class GemJarUtils extends GemJARGlobalVar {
 
     public static String getBrowserToTest() {
         String browserName = System.getProperty(BROWSERNAME);
-        String browserNameFromConfig = convertJsonElementToString(getGemJarConfigData(BROWSERNAME));
+        String browserNameFromConfig =null;
+        try{
+            browserNameFromConfig =convertJsonElementToString(getGemJarConfigData(BROWSERNAME));
+        }catch (Exception e){
+            browserNameFromConfig =null;
+        }
         String browser = browserName != null ? browserName
                 : browserNameFromConfig != null ? browserNameFromConfig : "chrome";
         return browser;

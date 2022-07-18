@@ -9,14 +9,17 @@ import org.testng.annotations.*;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
+import static com.gemini.featureFrameWork.GemJarUtils.loadGemJarConfigData;
+
 public class QuanticAPIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
-        initializeQuanticGlobalVariables();
+//        initializeQuanticGlobalVariables();
         GemJARGlobalVar.report_type = "Api Automation";
-        String urlFileName = GemJARGlobalVar.projectName + "_" + GemJARGlobalVar.environment + "_Url.properties";
-        InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
-        ProjectApiUrl.initializeApiUrl(ip);
+        loadGemJarConfigData();
+//        String urlFileName = GemJARGlobalVar.projectName + "_" + GemJARGlobalVar.environment + "_Url.properties";
+//        InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
+//        ProjectApiUrl.initializeApiUrl(ip);
         ProjectSampleJson.loadSampleJson();
         GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
     }

@@ -355,6 +355,16 @@ public class ApiClientConnect {
         return response;
     }
 
+    public static JsonObject getRequestWithReporting(String step, String url,Map<String,String> headers) {
+        JsonObject response = executeCreateRequest(step, "GET", url, null, null, headers, true);
+        return response;
+    }
+
+    public static JsonObject getRequest(String url,Map<String,String> headers) {
+        JsonObject response = executeCreateRequest(null, "GET", url, null, null, headers, false);
+        return response;
+    }
+
     // Method to execute Delete Request
     public static JsonObject deleteRequest(String url) {
         JsonObject response = executeCreateRequest(null, "Delete", url, null, null, null, false);
@@ -729,7 +739,7 @@ public class ApiClientConnect {
                                     }
                                 }
                                 if (!f) {
-                                    GemTestReporter.addTestStep("DeepSearch of key ~ " + deepSearchQuery, "DeepSearch Failed <BR> Expected value does not match actual value <BR> Expected value ~ " + target, STATUS.FAIL);
+                                    GemTestReporter.addTestStep("DeepSearch of key ~ " + deepSearchQuery, "Assertion Failed <BR> Expected value does not match actual value <BR> Expected value ~ " + target, STATUS.FAIL);
                                 }
                             }
                         } else {

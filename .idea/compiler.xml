@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="gemjar" target="1.8" />
+      <module name="gemjar" target="16" />
       <module name="gemjar-core" target="1.8" />
     </bytecodeTargetLevel>
   </component>

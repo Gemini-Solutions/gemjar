@@ -8,6 +8,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.gemini.featureFrameWork.GemJarUtils.convertJsonElementToString;
+import static com.gemini.featureFrameWork.GemJarUtils.getGemJarConfigData;
+
 public class QuanticGenericUtils extends GemJARGlobalVar {
     public static void setKerberosRequiredConfiguration() {
         try {
@@ -45,7 +48,7 @@ public class QuanticGenericUtils extends GemJARGlobalVar {
 
     public static String getProjectReportName() {
         String sysPropReportName = System.getProperty("QuanticReportName");
-        String reportNameFromPropFiles = GemJARGlobalVar.projectProperty.getProperty("reportName");
+        String reportNameFromPropFiles = convertJsonElementToString(getGemJarConfigData("reportName"));
         String reportName = sysPropReportName != null ? sysPropReportName
                 : reportNameFromPropFiles != null ? reportNameFromPropFiles
                 : GemJARGlobalVar.projectName + " Test report";
@@ -54,7 +57,12 @@ public class QuanticGenericUtils extends GemJARGlobalVar {
 
     public static String getTestCaseFileName() {
         String sysTestCaseFileName = System.getProperty("QuanticTestCaseFileName");
-        String testCaseFileNameFromProjProp = GemJARGlobalVar.projectProperty.getProperty("testCaseFileName");
+        String testCaseFileNameFromProjProp = null;
+        try {
+            testCaseFileNameFromProjProp = convertJsonElementToString(getGemJarConfigData("testCaseFileName"));
+        } catch (Exception e) {
+            testCaseFileNameFromProjProp = null;
+        }
         String testCaseFileName = sysTestCaseFileName != null ? sysTestCaseFileName
                 : testCaseFileNameFromProjProp != null ? testCaseFileNameFromProjProp
                 : GemJARGlobalVar.projectName + "_testCase.json";

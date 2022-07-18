@@ -8,13 +8,17 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import static com.gemini.featureFrameWork.GemJarUtils.*;
+import static com.gemini.featureFrameWork.GemJarUtils.getGemJarConfigData;
+
 @Listeners(QuanticTestngTestFilter.class)
 public class QuanticUIBase extends QuanticGenericUtils {
 
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
-        initializeQuanticGlobalVariables();
-        GemJARGlobalVar.report_type = "UI Automation";
+//        initializeQuanticGlobalVariables();
+        loadGemJarConfigData();
+    GemJARGlobalVar.report_type = "UI Automation";
         GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
 
     }
@@ -40,9 +44,9 @@ public class QuanticUIBase extends QuanticGenericUtils {
         GemTestReporter.startTestCase(testcaseName, testClassName, false);
         DriverManager.initializeBrowser(GemJARGlobalVar.browserInTest);
         DriverAction.maximizeBrowser();
-        DriverAction.setImplicitTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
-        DriverAction.setPageLoadTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
-        DriverAction.launchUrl(ProjectProperties.getProperty("baseURL"));
+        DriverAction.setImplicitTimeOut(Long.parseLong(convertJsonElementToString(getGemJarConfigData("browserTimeOut"))));
+        DriverAction.setPageLoadTimeOut(Long.parseLong(convertJsonElementToString(getGemJarConfigData("browserTimeOut"))));
+        DriverAction.launchUrl(convertJsonElementToString(getGemJarConfigData("baseURL")));
         TestCaseData.setCurrentTestCaseData(testcaseName);
     }
 

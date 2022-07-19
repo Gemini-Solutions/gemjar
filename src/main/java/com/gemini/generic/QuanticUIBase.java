@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 import static com.gemini.featureFrameWork.GemJarUtils.*;
-import static com.gemini.featureFrameWork.GemJarUtils.getGemJarConfigData;
 
 @Listeners(QuanticTestngTestFilter.class)
 public class QuanticUIBase extends QuanticGenericUtils {
@@ -17,7 +16,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
 //        initializeQuanticGlobalVariables();
-    GemJARGlobalVar.report_type = "UI Automation";
+        GemJARGlobalVar.report_type = "UI Automation";
         loadGemJarConfigData();
         GemTestReporter.startSuite(GemJARGlobalVar.projectName, GemJARGlobalVar.environment);
 

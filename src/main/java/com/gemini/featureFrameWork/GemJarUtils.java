@@ -88,9 +88,11 @@ public class GemJarUtils extends GemJARGlobalVar {
     }
 
     public static String convertJsonElementToString(JsonElement jsonElement) {
-        return jsonElement.isJsonNull() ?
+
+        return jsonElement!= null? ( jsonElement.isJsonNull()  ?
                 null : jsonElement.isJsonPrimitive() ?
-                jsonElement.getAsJsonPrimitive().getAsString() : jsonElement.toString();
+                jsonElement.getAsJsonPrimitive().getAsString() : jsonElement.toString()):null;
+
     }
 
     public static String getProjectReportName() {

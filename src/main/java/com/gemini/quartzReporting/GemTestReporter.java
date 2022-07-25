@@ -84,7 +84,7 @@ public class GemTestReporter {
         JsonArray metaData = new JsonArray();
         JsonObject testcaseName = new JsonObject();
         testcaseName.addProperty("TESTCASE NAME", testCase_Details.get().getName());
-        testcaseName.addProperty("SERVICE PROJECT", "");
+        testcaseName.addProperty("SERVICE PROJECT", "NONE");
         JsonObject dateOfExecution = new JsonObject();
         dateOfExecution.addProperty("value", testCase_Details.get().getStart_time());
         dateOfExecution.addProperty("type", "date");
@@ -94,12 +94,12 @@ public class GemTestReporter {
         JsonObject executionTimeDetail = new JsonObject();
         JsonObject startTimeDetail = new JsonObject();
         startTimeDetail.addProperty("value", testCase_Details.get().getStart_time());
-        startTimeDetail.addProperty("type", "date");
+        startTimeDetail.addProperty("type", "datetime");
         executionTimeDetail.add("EXECUTION STARTED ON", startTimeDetail);
 
         JsonObject endTimeDetail = new JsonObject();
         endTimeDetail.addProperty("value", testCase_Details.get().getEnd_time());
-        endTimeDetail.addProperty("type", "date");
+        endTimeDetail.addProperty("type", "datetime");
         executionTimeDetail.add("EXECUTION ENDED ON", endTimeDetail);
 //        float start_t = testCase_Details.get().getStart_time();
 //        float end_t = testCase_Details.get().getEnd_time();

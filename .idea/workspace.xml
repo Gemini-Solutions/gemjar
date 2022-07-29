@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="integrated jemgar-config.json to HealthCheckBase and APIBase">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/GemJarUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/featureFrameWork/GemJarUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/gemini/generic/QuanticUIBase.java" afterDir="false" />
-    </list>
+    <list default="true" id="097b27bf-7663-4150-92d1-0345242efd10" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,87 +16,26 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="useMavenConfig" value="true" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectId" id="28xzRAc0E26fjzYlQYWIF8MB7F9" />
+  <component name="ProjectId" id="2CT4R3m0gMCvGeznizf66ZlbJqV" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/akash/IdeaProjects/gemeco_api/GemEcosystem_api-GeminiApi_Automation&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
-  }
-}</component>
-  <component name="RunAnythingCache">
-    <option name="myCommands">
-      <command value="mvn dependency:tree" />
-    </option>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Gemjar2/gemjar" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c0c039b4-167a-40bd-b15a-db4cd6cf97ef" name="Changes" comment="" />
-      <created>1652173013863</created>
+      <changelist id="097b27bf-7663-4150-92d1-0345242efd10" name="Changes" comment="" />
+      <created>1658813236156</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1652173013863</updated>
+      <updated>1658813236156</updated>
     </task>
-    <task id="LOCAL-00001" summary="merge QuanticGenericUtils.java">
-      <created>1654851596478</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1654851596478</updated>
-    </task>
-    <task id="LOCAL-00002" summary="integrated jemgar-config.json to UIBase">
-      <created>1658122719023</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1658122719023</updated>
-    </task>
-    <task id="LOCAL-00003" summary="integrated jemgar-config.json to HealthCheckBase and APIBase">
-      <created>1658144659436</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1658144659436</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="merge QuanticGenericUtils.java" />
-    <MESSAGE value="integrated jemgar-config.json to UIBase" />
-    <MESSAGE value="integrated jemgar-config.json to HealthCheckBase and APIBase" />
-    <option name="LAST_COMMIT_MESSAGE" value="integrated jemgar-config.json to HealthCheckBase and APIBase" />
-  </component>
-  <component name="XSLT-Support.FileAssociations.UIState">
-    <expand />
-    <select />
   </component>
 </project>

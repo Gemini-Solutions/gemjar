@@ -1,7 +1,7 @@
 package com.gemini.apitest;
 
 import com.gemini.generic.ParameterizedUrl;
-import com.gemini.generic.GemJARGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import com.google.gson.*;
@@ -131,7 +131,8 @@ public class ApiClientConnect {
     public static JsonObject executeCreateRequest(String step, String method, String url, String requestPayload,
                                                    String contentType, Map<String, String> headers, boolean isReporting) {
 
-        url = url.replace(" ", "%20");
+//        url = url.replace(" ", "%20");
+        url = ParameterizedUrl.getParameterizedUrl(url,new HashMap<>());
         Authenticator.setDefault(new MyAuthenticator());
         HttpURLConnection httpsCon;
 
@@ -354,6 +355,16 @@ public class ApiClientConnect {
         return response;
     }
 
+    public static JsonObject getRequestWithReporting(String step, String url,Map<String,String> headers) {
+        JsonObject response = executeCreateRequest(step, "GET", url, null, null, headers, true);
+        return response;
+    }
+
+    public static JsonObject getRequest(String url,Map<String,String> headers) {
+        JsonObject response = executeCreateRequest(null, "GET", url, null, null, headers, false);
+        return response;
+    }
+
     // Method to execute Delete Request
     public static JsonObject deleteRequest(String url) {
         JsonObject response = executeCreateRequest(null, "Delete", url, null, null, null, false);
@@ -485,8 +496,9 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                GemJARGlobalVar.globalResponseHM = responseHashMap;
+                GemjarGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
+//                GemTestReporter.apiExecutionTime(executionTime);
                 String requestHeaders = response.get("requestHeaders").getAsString();
                 String responseMessage = null;
 
@@ -585,7 +597,6 @@ public class ApiClientConnect {
         return responseJson;
     }
 
-
     public static JsonArray healthCheckJsonWithoutNewTC(JsonArray req) {
         JsonArray responseJson = new JsonArray();
         Map<String, JsonElement> responseHashMap = new HashMap<String, JsonElement>();
@@ -653,7 +664,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                GemJARGlobalVar.globalResponseHM = responseHashMap;
+                GemjarGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
 //                GemTestReporter.apiExecutionTime(executionTime);
                 String requestHeaders = response.get("requestHeaders").getAsString();

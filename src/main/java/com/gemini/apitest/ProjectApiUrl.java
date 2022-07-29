@@ -1,7 +1,6 @@
 package com.gemini.apitest;
 
-import com.gemini.featureFrameWork.GemJarUtils;
-import com.gemini.generic.GemJARGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +12,7 @@ public class ProjectApiUrl {
     public static void initializeApiUrl() {
         try {
             properties = new Properties();
-            String urlFileName = GemJARGlobalVar.projectName + "_" + GemJARGlobalVar.environment + "_Url.properties";
+            String urlFileName = GemjarGlobalVar.projectName + "_" + GemjarGlobalVar.environment + "_Url.properties";
             properties.load(ClassLoader.getSystemResourceAsStream(urlFileName));
 
         } catch (IOException e) {
@@ -33,7 +32,7 @@ public class ProjectApiUrl {
     }
 
     public static String getUrl(String urlName) {
-        String urlValue = GemJarUtils.getGemJarConfigData(urlName).getAsString();
+        String urlValue = properties.getProperty(urlName);
         return urlValue;
     }
 

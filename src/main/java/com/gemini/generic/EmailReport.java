@@ -20,24 +20,24 @@ import java.util.zip.ZipOutputStream;
 public class EmailReport {
 
     public static void sendReport() {
-        if (!GemJARGlobalVar.sendMail.equalsIgnoreCase("false")) {
-            String suiteStatus = GemJARGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
-            Long suiteStart = GemJARGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
+        if (!GemjarGlobalVar.sendMail.equalsIgnoreCase("false")) {
+            String suiteStatus = GemjarGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("status").getAsString();
+            Long suiteStart = GemjarGlobalVar.suiteDetail.getAsJsonObject().get("Suits_Details").getAsJsonObject().get("s_start_time").getAsLong();
             Date date = new Date(suiteStart);
             DateFormat format = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 //        format.setTimeZone(TimeZone.getTimeZone("Australia/Sydney"));
             String formattedDate = format.format(date);
             String message = "GEMJAR Email Report ";
-            String subject = suiteStatus + " | " + GemJARGlobalVar.environment.toUpperCase() + " | " + GemJARGlobalVar.projectName + " | GEM JAR AUTOMATED SUITE RUN EXECUTED ON " + formattedDate;
-            String toMail = GemJARGlobalVar.mail;
-            String ccMail = GemJARGlobalVar.ccMail;
+            String subject = suiteStatus + " | " + GemjarGlobalVar.environment.toUpperCase() + " | " + GemjarGlobalVar.projectName + " | GEM JAR AUTOMATED SUITE RUN EXECUTED ON " + formattedDate;
+            String toMail = GemjarGlobalVar.mail;
+            String ccMail = GemjarGlobalVar.ccMail;
             String conditionMail = toMail;
             if (suiteStatus.equals("PASS")) {
-                conditionMail = GemJARGlobalVar.passMail;
+                conditionMail = GemjarGlobalVar.passMail;
             } else {
-                conditionMail = GemJARGlobalVar.failMail;
+                conditionMail = GemjarGlobalVar.failMail;
             }
-            String fromMail = GemJARGlobalVar.fromMail;
+            String fromMail = GemjarGlobalVar.fromMail;
             String host = "smtp.gmail.com";
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", host);
@@ -47,7 +47,7 @@ public class EmailReport {
             Session session = Session.getInstance(properties, new Authenticator() {
                 @Override
                 protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(GemJARGlobalVar.fromMail, GemJARGlobalVar.fromMailPwd);
+                    return new PasswordAuthentication(GemjarGlobalVar.fromMail, GemjarGlobalVar.fromMailPwd);
                 }
             });
 //        session.setDebug(true);
@@ -59,12 +59,12 @@ public class EmailReport {
                 reportMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(conditionMail));
                 reportMessage.setSubject(subject);
                 String path = "";
-                if (GemJARGlobalVar.report_type.equals("UI Automation")) {
-                    String zipLoc = GemJARGlobalVar.reportLocation + ".zip";
-                    zipFolder(Paths.get(GemJARGlobalVar.reportLocation), Paths.get(zipLoc));
+                if (GemjarGlobalVar.report_type.equals("UI Automation")) {
+                    String zipLoc = GemjarGlobalVar.reportLocation + ".zip";
+                    zipFolder(Paths.get(GemjarGlobalVar.reportLocation), Paths.get(zipLoc));
                     path = zipLoc;
                 } else {
-                    path = GemJARGlobalVar.reportLocation + "/" + GemJARGlobalVar.reportName + ".html";
+                    path = GemjarGlobalVar.reportLocation + "/" + GemjarGlobalVar.reportName + ".html";
                 }
                 MimeMultipart multipart = new MimeMultipart();
                 MimeBodyPart textContent = new MimeBodyPart();

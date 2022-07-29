@@ -21,6 +21,16 @@ class TestCase_Details {
 	private String result_file;
 	private boolean ignore;
 
+//	private String Execution_time;
+//
+//	public String  getExecution_time() {
+//		return Execution_time;
+//	}
+//
+//	public void setExecution_time(String  execution_time) {
+//		Execution_time = execution_time;
+//	}
+
 	public TestCase_Details(String testcaseName, String Category, String User, boolean ignore) {
 		this.tc_run_id = testcaseName + "_" + UUID.randomUUID();
 		this.Name = testcaseName;
@@ -29,13 +39,31 @@ class TestCase_Details {
 		this.User = User;
 		this.Machine = GemReportingUtility.getMachineName();
 		this.ignore = ignore;
+//		this.Execution_time = "";
 
 	}
 
+	@Override
 	public String toString() {
-		return "tc_run_id = " + this.tc_run_id + ", start_time = " + this.start_time + ", end_time = " + this.end_time
-				+ ", Name = " + this.Name + ", Category = " + this.Category + ", log_file = " + this.log_file
-				+ ", status = " + this.status;
+		return "TestCase_Details{" +
+				"tc_run_id='" + tc_run_id + '\'' +
+				", start_time=" + start_time +
+				", end_time=" + end_time +
+				", Name='" + Name + '\'' +
+				", Category='" + Category + '\'' +
+				", log_file='" + log_file + '\'' +
+				", status='" + status + '\'' +
+				", User='" + User + '\'' +
+				", Machine='" + Machine + '\'' +
+				", result_file='" + result_file + '\'' +
+				", ignore=" + ignore
+				/*
+				+
+				", Execution_time=" + Execution_time +
+				'}'
+				*/
+				;
+
 	}
 
 	public TestCase_Details(String testcaseName, String Category, String User, String productType) {

@@ -1,5 +1,12 @@
 package com.gemini.generic;
 
+import com.gemini.quartzReporting.GemTestReporter;
+import com.gemini.quartzReporting.STATUS;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -7,18 +14,6 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
-import com.gemini.quartzReporting.GemTestReporter;
-import com.gemini.quartzReporting.STATUS;
 
 public class DriverAction {
 
@@ -459,10 +454,11 @@ public class DriverAction {
 
     public static void AlertInput(String input, Boolean report) throws IOException {
         try {
+            String s = DriverAction.takeSnapShot();
             DriverManager.getWebDriver().switchTo().alert().sendKeys(input);
             if (report) {
                 GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Successful <BR> input ~ " + input,
-                        STATUS.PASS, DriverAction.takeSnapShot());
+                        STATUS.PASS, s);
             }
         } catch (Exception e) {
             GemTestReporter.addTestStep("SendKeys To Alert", "SendKeys To Alert Failed <BR> input ~ " + input,
@@ -707,7 +703,7 @@ public class DriverAction {
 
     public static String takeSnapShot() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String fileWithPath = GemJARGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
+        String fileWithPath = GemjarGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
         WebDriver webdriver = DriverManager.getWebDriver();
         TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
@@ -733,4 +729,445 @@ public class DriverAction {
         }
 
     }
+
+    // close Driver or Current tab
+
+    public static void closeCurrentTab() {
+        try {
+            DriverManager.closeDriver();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Close Current Tab", "Some error occured", STATUS.PASS);
+        }
+    }
+
+    //Double click mouse event
+
+    public static void doubleClick(WebElement element, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void doubleClick(By locator, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Double Click on ", "Double Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(By locator) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Double Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(By locator, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(WebElement element, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void doubleClick(WebElement element) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.doubleClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Double Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    // Right Click or Context click
+
+    public static void rightClick(WebElement element, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator, String elementLabel) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Successful on " + elementLabel, STATUS.PASS,
+                    DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Right Click on ", "Right Click Failed on " + elementLabel, STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Right Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(By locator, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            WebElement element = getElement(locator);
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(WebElement element, String steps, String description) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+            GemTestReporter.addTestStep(steps, description, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep(steps, description, STATUS.FAIL, DriverAction.takeSnapShot());
+        }
+    }
+    public static void rightClick(WebElement element) throws IOException {
+        try {
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.contextClick(element).perform();
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Right Click", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    // drop down
+
+
+    // upload file
+    public static void fileUpload(WebElement element, String path) throws IOException {
+        try {
+            DriverAction.getElement((By) element).sendKeys(path);
+            GemTestReporter.addTestStep("File Upload", "Successfully", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void fileUpload(By element, String path) throws IOException {
+        try {
+            DriverAction.getElement(element).sendKeys(path);
+            GemTestReporter.addTestStep("File Upload", "Successfully", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+//report function
+    //drag and drop
+
+
+
+    // drop down
+
+    public static void dropDown(By element, String name, boolean report) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement(element));
+            drp.selectByVisibleText(name);
+            if (report) {
+                GemTestReporter.addTestStep("DropDown", name + " Selected", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(WebElement element, String name, boolean report) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement((By) element));
+            drp.selectByVisibleText(name);
+            if (report) {
+                GemTestReporter.addTestStep("DropDown", name + " Selected", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(By element, int index, boolean report) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement(element));
+            drp.selectByIndex(index);
+            if (report) {
+                GemTestReporter.addTestStep("DropDown", index + " Selected", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(WebElement element, int index, boolean report) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement((By) element));
+            drp.selectByIndex(index);
+            if (report) {
+                GemTestReporter.addTestStep("DropDown", index + " Selected", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    // upload file
+
+    public static void fileUpload(WebElement element, String path, boolean report) throws IOException {
+        try {
+            DriverAction.getElement((By) element).sendKeys(path);
+            if (report) {
+                GemTestReporter.addTestStep("File Upload", "Successfully", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void fileUpload(By element, String path, boolean report) throws IOException {
+        try {
+            DriverAction.getElement(element).sendKeys(path);
+            if (report) {
+                GemTestReporter.addTestStep("File Upload", "Successfully", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    // scroll
+    public static void pageScroll(int X, int Y, boolean report) throws IOException {
+        try {
+            JavascriptExecutor js = (JavascriptExecutor) DriverManager.getWebDriver();
+            js.executeScript("window.scrollBy(+" + X + "," + Y + ")");
+            if (report) {
+                GemTestReporter.addTestStep("Scrolling", "Successful", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+
+    // drag and drop
+
+    public static void dragAndDrop(WebElement from, WebElement To, boolean report) throws IOException {
+        try {
+            WebElement from1 = DriverManager.getWebDriver().findElement((By) from);
+            WebElement To1 = DriverManager.getWebDriver().findElement((By) To);
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.dragAndDrop(from1, To1).build().perform();
+            if (report) {
+                GemTestReporter.addTestStep("Drag and Drop", "Success", STATUS.PASS, DriverAction.takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Drag and drop", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dragAndDrop(By from, By To, boolean report) throws IOException {
+        try {
+            WebElement from1 = DriverManager.getWebDriver().findElement(from);
+            WebElement To1 = DriverManager.getWebDriver().findElement(To);
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.dragAndDrop(from1, To1).build().perform();
+            if (report) {
+                GemTestReporter.addTestStep("Drag and Drop", "Success", STATUS.PASS, DriverAction.takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Drag and drop", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dragAndDrop(By from, String fromElementLabel, By To, String toElementLabel) throws IOException {
+        try {
+            WebElement from1 = DriverManager.getWebDriver().findElement(from);
+            WebElement To1 = DriverManager.getWebDriver().findElement(To);
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.dragAndDrop(from1, To1).build().perform();
+            GemTestReporter.addTestStep("Drag and Drop", "Successfully moved from " + fromElementLabel + " to " + toElementLabel, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Drag and drop", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dragAndDrop(WebElement from, String fromElementLabel, WebElement To, String toElementLabel) throws IOException {
+        try {
+            WebElement from1 = DriverManager.getWebDriver().findElement((By) from);
+            WebElement To1 = DriverManager.getWebDriver().findElement((By) To);
+            Actions act = new Actions(DriverManager.getWebDriver());
+            act.dragAndDrop(from1, To1).build().perform();
+            GemTestReporter.addTestStep("Drag and Drop", "Successfully moved from " + fromElementLabel + " to " + toElementLabel, STATUS.PASS, DriverAction.takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur while Drag and drop", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    //Select
+
+    // drop down
+    public static void dropDown(By element, String name) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement(element));
+            drp.selectByVisibleText(name);
+            GemTestReporter.addTestStep("DropDown", name + " Selected", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(WebElement element, String name) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement((By) element));
+            drp.selectByVisibleText(name);
+            GemTestReporter.addTestStep("DropDown", name + " Selected", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(By element, int index) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement(element));
+            drp.selectByIndex(index);
+            GemTestReporter.addTestStep("DropDown", index + " Selected", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
+    public static void dropDown(WebElement element, int index) throws IOException {
+        try {
+            Select drp = new Select(DriverAction.getElement((By) element));
+            drp.selectByIndex(index);
+            GemTestReporter.addTestStep("DropDown", index + " Selected", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(WebElement element){
+        try {
+            DriverManager.getWebDriver().findElement((By) element).clear();
+            GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(By element){
+        try {
+            DriverManager.getWebDriver().findElement(element).clear();
+            GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(WebElement element,boolean report){
+        try {
+            DriverManager.getWebDriver().findElement((By) element).clear();
+            if(report){
+                GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+    public static void clearText(By element,boolean report){
+        try {
+            DriverManager.getWebDriver().findElement(element).clear();
+            if(report){
+                GemTestReporter.addTestStep("Clear Text",  " Successful", STATUS.PASS, takeSnapShot());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            GemTestReporter.addTestStep("Some error occur", "Error Occur", STATUS.FAIL,
+                    DriverAction.takeSnapShot());
+        }
+    }
+
 }

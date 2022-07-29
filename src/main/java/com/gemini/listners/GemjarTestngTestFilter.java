@@ -1,6 +1,6 @@
 package com.gemini.listners;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -17,21 +17,21 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuanticTestngTestFilter implements IMethodInterceptor {
+public class GemjarTestngTestFilter implements IMethodInterceptor {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     public List<IMethodInstance> intercept(List<IMethodInstance> methods, ITestContext context) {
         List<IMethodInstance> testCasesToRun = new ArrayList<IMethodInstance>();
         String data = null;
-        if (QuanticGlobalVar.testCaseDataJsonPath != null) {
+        if (GemjarGlobalVar.testCaseDataJsonPath != null) {
             try {
-                data = new String(Files.readAllBytes(new File(QuanticGlobalVar.testCaseDataJsonPath).toPath()));
+                data = new String(Files.readAllBytes(new File(GemjarGlobalVar.testCaseDataJsonPath).toPath()));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             try {
-                data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName),
+                data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(GemjarGlobalVar.testCaseFileName),
                         StandardCharsets.UTF_8);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -40,7 +40,7 @@ public class QuanticTestngTestFilter implements IMethodInterceptor {
         JsonElement jsonElement = gson.fromJson(data, JsonElement.class);
         JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-        if (QuanticGlobalVar.testCasesToRun != null) {
+        if (GemjarGlobalVar.testCasesToRun != null) {
             for (IMethodInstance iMethodInstance : methods) {
                 String methodName = iMethodInstance.getMethod().getConstructorOrMethod().getMethod().getName()
                         .toString();
@@ -49,7 +49,7 @@ public class QuanticTestngTestFilter implements IMethodInterceptor {
                         : null;
                 if ((methodJson != null) && (methodJson.get("runFlag") != null)) {
                     if ((methodJson.get("runFlag").getAsString().equalsIgnoreCase("Y")
-                            && QuanticGlobalVar.testCasesToRun.contains(methodName))) {
+                            && GemjarGlobalVar.testCasesToRun.contains(methodName))) {
                         testCasesToRun.add(iMethodInstance);
                     }
                 }

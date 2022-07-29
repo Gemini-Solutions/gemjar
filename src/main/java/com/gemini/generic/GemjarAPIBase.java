@@ -9,16 +9,16 @@ import org.testng.annotations.*;
 import java.io.InputStream;
 import java.lang.reflect.Method;
 
-public class QuanticHealthCheckBase extends QuanticGenericUtils {
+public class GemjarAPIBase extends GemjarGenericUtils {
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
-        initializeQuanticGlobalVariables();
-        QuanticGlobalVar.report_type = "Health Check Automation";
-        String urlFileName = QuanticGlobalVar.projectName + "_" + QuanticGlobalVar.environment + "_Url.properties";
+        initializeGemjarGlobalVariables();
+        GemjarGlobalVar.report_type = "Api Automation";
+        String urlFileName = GemjarGlobalVar.projectName + "_" + GemjarGlobalVar.environment + "_Url.properties";
         InputStream ip = ClassLoader.getSystemResourceAsStream(urlFileName);
         ProjectApiUrl.initializeApiUrl(ip);
         ProjectSampleJson.loadSampleJson();
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+        GemTestReporter.startSuite(GemjarGlobalVar.projectName, GemjarGlobalVar.environment);
     }
 
     @BeforeTest
@@ -34,13 +34,13 @@ public class QuanticHealthCheckBase extends QuanticGenericUtils {
         String testcaseName = method.getName();
         String testClassName = method.getClass().getSimpleName();
         TestCaseData.setCurrentTestCaseData(testcaseName);
-//		GemTestReporter.startTestCase(testcaseName, testClassName, false);
+        GemTestReporter.startTestCase(testcaseName, testClassName, false);
     }
 
     @AfterMethod
     public void afterMethod() {
         // Report
-//		GemTestReporter.endTestCase();
+        GemTestReporter.endTestCase();
     }
 
     @AfterClass
@@ -54,9 +54,10 @@ public class QuanticHealthCheckBase extends QuanticGenericUtils {
 
     @AfterSuite
     public void afterSuite() {
-        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+        GemTestReporter.endSuite(GemjarGlobalVar.reportLocation);
         GemEcoUpload.postNewRecord();
 //        EmailReport.sendReport();
+
     }
 
 }

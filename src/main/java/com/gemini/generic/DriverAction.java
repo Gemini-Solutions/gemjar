@@ -703,7 +703,7 @@ public class DriverAction {
 
     public static String takeSnapShot() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String fileWithPath = QuanticGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
+        String fileWithPath = GemjarGlobalVar.reportLocation + "/SS/SS" + timestamp.getTime() + ".png";
         WebDriver webdriver = DriverManager.getWebDriver();
         TakesScreenshot scrShot = ((TakesScreenshot) webdriver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);

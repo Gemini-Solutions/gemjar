@@ -1,6 +1,6 @@
 package com.gemini.quartzReporting;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.google.gson.*;
 import org.apache.commons.codec.binary.Base64;
 
@@ -155,7 +155,7 @@ public class GemTestReporter {
             }
         }
         System.out.println("SuitDetails " + suiteDetail.toString());
-        QuanticGlobalVar.suiteDetail = suiteDetail;
+        GemjarGlobalVar.suiteDetail = suiteDetail;
 //        System.out.println("----------------------------------------------------------------");
 //        System.out.println("testCaseDetails"+stepJson.toString());
 

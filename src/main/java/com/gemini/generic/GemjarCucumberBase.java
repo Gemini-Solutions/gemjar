@@ -12,19 +12,19 @@ import org.testng.annotations.BeforeSuite;
 import java.io.File;
 import java.net.URISyntaxException;
 
-public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
+public class GemjarCucumberBase extends AbstractTestNGCucumberTests {
 
     @BeforeSuite
     public void beforeSuite() {
-        QuanticGlobalVar.quanticProperty = PropertyListeners
-                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
+        GemjarGlobalVar.GemjarProperty = PropertyListeners
+                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Gemjar.properties"));
         setCucumberProperties();
     }
 
     private void setCucumberProperties() {
 
         try {
-            String stepDefinitionPackages = QuanticGlobalVar.quanticProperty.getProperty("glueCode");
+            String stepDefinitionPackages = GemjarGlobalVar.GemjarProperty.getProperty("glueCode");
             System.setProperty("cucumber.glue", "com.gemini.generic," + stepDefinitionPackages);
             System.setProperty("cucumber.features",
                     new File(ClassLoader.getSystemResource("features").toURI()).getAbsolutePath());
@@ -37,17 +37,17 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 
     @BeforeAll
     public void beforeAll() {
-        QuanticGenericUtils.initializeQuanticGlobalVariables();
+        GemjarGenericUtils.initializeGemjarGlobalVariables();
         ProjectApiUrl.initializeApiUrl();
         ProjectSampleJson.loadSampleJson();
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+        GemTestReporter.startSuite(GemjarGlobalVar.projectName, GemjarGlobalVar.environment);
     }
 
     @Before
     public void before(Scenario scenario) {
         String testcaseName = scenario.getName();
         String featureFileName = new File(scenario.getUri()).getName();
-        DriverManager.initializeBrowser(QuanticGlobalVar.browserInTest);
+        DriverManager.initializeBrowser(GemjarGlobalVar.browserInTest);
         DriverAction.maximizeBrowser();
         DriverAction.setImplicitTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
         DriverAction.setPageLoadTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
@@ -74,7 +74,7 @@ public class QuanticCucumberBase extends AbstractTestNGCucumberTests {
 
     @AfterAll
     public void afterAll() {
-        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+        GemTestReporter.endSuite(GemjarGlobalVar.reportLocation);
     }
 
 }

@@ -1,7 +1,7 @@
 package com.gemini.apitest;
 
 import com.gemini.generic.ParameterizedUrl;
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import com.google.gson.*;
@@ -496,7 +496,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                QuanticGlobalVar.globalResponseHM = responseHashMap;
+                GemjarGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
 //                GemTestReporter.apiExecutionTime(executionTime);
                 String requestHeaders = response.get("requestHeaders").getAsString();
@@ -664,7 +664,7 @@ public class ApiClientConnect {
                 JsonObject response = executeCreateRequest(step, method, url, payload, null, headers, false);
                 responseJson.add(response);
                 responseHashMap.put("test_response_" + i, response);
-                QuanticGlobalVar.globalResponseHM = responseHashMap;
+                GemjarGlobalVar.globalResponseHM = responseHashMap;
                 String executionTime = response.get("execTime").getAsString();
 //                GemTestReporter.apiExecutionTime(executionTime);
                 String requestHeaders = response.get("requestHeaders").getAsString();

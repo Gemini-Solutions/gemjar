@@ -1,6 +1,6 @@
 package com.gemini.apitest;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.gemini.quartzReporting.GemTestReporter;
 import com.gemini.quartzReporting.STATUS;
 import com.google.gson.JsonArray;
@@ -247,7 +247,7 @@ public class ApiHealthCheckUtils {
         String end = requestBodyString.substring(second + 1);
         String buffer = requestBodyString.substring(first + 1, second);
         if (buffer.contains("test_response")) {
-            String t = ApiHealthCheckUtils.Replace("#" + buffer + "#", QuanticGlobalVar.globalResponseHM);
+            String t = ApiHealthCheckUtils.Replace("#" + buffer + "#", GemjarGlobalVar.globalResponseHM);
             return start + t + end;
         } else {
             String[] arrays = buffer.split("-", 2);

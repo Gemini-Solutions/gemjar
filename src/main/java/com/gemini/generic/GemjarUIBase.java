@@ -1,6 +1,6 @@
 package com.gemini.generic;
 
-import com.gemini.listners.QuanticTestngTestFilter;
+import com.gemini.listners.GemjarTestngTestFilter;
 import com.gemini.quartzReporting.GemTestReporter;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
@@ -8,14 +8,14 @@ import org.testng.annotations.*;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-@Listeners(QuanticTestngTestFilter.class)
-public class QuanticUIBase extends QuanticGenericUtils {
+@Listeners(GemjarTestngTestFilter.class)
+public class GemjarUIBase extends GemjarGenericUtils {
 
     @BeforeSuite
     public void beforeSuite(ITestContext iTestContext) {
-        initializeQuanticGlobalVariables();
-        QuanticGlobalVar.report_type = "UI Automation";
-        GemTestReporter.startSuite(QuanticGlobalVar.projectName, QuanticGlobalVar.environment);
+        initializeGemjarGlobalVariables();
+        GemjarGlobalVar.report_type = "UI Automation";
+        GemTestReporter.startSuite(GemjarGlobalVar.projectName, GemjarGlobalVar.environment);
 
     }
 
@@ -23,7 +23,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @BeforeTest
     public void beforeTest(@Optional String browserName) {
         if (browserName != null) {
-            QuanticGlobalVar.browserInTest = browserName;
+            GemjarGlobalVar.browserInTest = browserName;
         }
     }
 
@@ -38,7 +38,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
         String testcaseName = method.getName();
         String testClassName = method.getClass().getSimpleName();
         GemTestReporter.startTestCase(testcaseName, testClassName, false);
-        DriverManager.initializeBrowser(QuanticGlobalVar.browserInTest);
+        DriverManager.initializeBrowser(GemjarGlobalVar.browserInTest);
         DriverAction.maximizeBrowser();
         DriverAction.setImplicitTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
         DriverAction.setPageLoadTimeOut(Long.parseLong(ProjectProperties.getProperty("browserTimeOut")));
@@ -65,7 +65,7 @@ public class QuanticUIBase extends QuanticGenericUtils {
     @AfterSuite
     public void afterSuite() {
 
-        GemTestReporter.endSuite(QuanticGlobalVar.reportLocation);
+        GemTestReporter.endSuite(GemjarGlobalVar.reportLocation);
         GemEcoUpload.postNewRecord();
 //        EmailReport.sendReport();
 

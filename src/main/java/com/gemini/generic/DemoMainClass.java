@@ -1,7 +1,7 @@
 package com.gemini.generic;
 
 import com.gemini.listners.PropertyListeners;
-import com.gemini.listners.QuanticTestngTestFilter;
+import com.gemini.listners.GemjarTestngTestFilter;
 import org.reflections.Reflections;
 import org.testng.IMethodInterceptor;
 import org.testng.TestNG;
@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
-public class QuanticMainClass {
+public class DemoMainClass {
 
     @SuppressWarnings({"deprecation", "rawtypes"})
     public static void main(String args[]) {
-        Properties quanticProperty = PropertyListeners
-                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Quantic.properties"));
-        String testPackageName = quanticProperty.getProperty("testPackageName");
-        String projectName = quanticProperty.getProperty("artifactId");
+        Properties gemjarProperty = PropertyListeners
+                .loadProjectProperties(ClassLoader.getSystemResourceAsStream("Gemjar.properties"));
+        String testPackageName = gemjarProperty.getProperty("testPackageName");
+        String projectName = gemjarProperty.getProperty("artifactId");
         TestNG testNG = new TestNG();
         testNG.setDefaultSuiteName(projectName);
         testNG.setDefaultTestName(projectName);
         testNG.setUseDefaultListeners(false);
-        IMethodInterceptor quanticTestFilter = new QuanticTestngTestFilter();
+        IMethodInterceptor gemjarTestFilter = new GemjarTestngTestFilter();
         Reflections reflections = new Reflections(new String(testPackageName));
         Set<String> testClasses = reflections.getAllTypes();
         List<Class> testClassArray = new ArrayList<Class>();
@@ -36,7 +36,7 @@ public class QuanticMainClass {
                 }
             }
         }
-        testNG.setMethodInterceptor(quanticTestFilter);
+        testNG.setMethodInterceptor(gemjarTestFilter);
         testNG.setTestClasses(testClassArray.toArray(new Class[testClassArray.size()]));
         testNG.run();
     }

@@ -1,6 +1,7 @@
 package com.gemini.quartzReporting;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
+import com.gemini.generic.ProjectProperties;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -14,11 +15,11 @@ public class GemReportingUtility {
 
     public static void createReport(String suiteDetail, String stepJson, String reportLoc) {
         try {
-            String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("QuanticReport.html"),
+            String htmlTemplate = IOUtils.toString(ClassLoader.getSystemResourceAsStream("GemjarReport.html"),
                     Charset.defaultCharset());
             htmlTemplate = htmlTemplate.replace("var obj = '';", "var obj = " + suiteDetail + ";");
-            QuanticGlobalVar.reportName="GemEcoTestReport_" + Instant.now().toEpochMilli();
-            FileUtils.writeStringToFile(new File(reportLoc + "/"+ QuanticGlobalVar.reportName + ".html"), htmlTemplate, Charset.defaultCharset());
+            GemjarGlobalVar.reportName="GemEcoTestReport_" + Instant.now().toEpochMilli();
+            FileUtils.writeStringToFile(new File(reportLoc + "/"+ GemjarGlobalVar.reportName + ".html"), htmlTemplate, Charset.defaultCharset());
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -46,7 +47,14 @@ public class GemReportingUtility {
     }
 
     public static String getCurrentUserName() {
+        if (ProjectProperties.containsKey("gemjarUserName"))
+        {
+            return ProjectProperties.getProperty("gemjarUserName");
+
+        }
+
         return System.getProperty("user.name");
+
         //get from properties from same as login user name from jewel
     }
 

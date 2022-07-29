@@ -1,6 +1,6 @@
 package com.gemini.dataProvider;
 
-import com.gemini.generic.QuanticGlobalVar;
+import com.gemini.generic.GemjarGlobalVar;
 import com.google.gson.*;
 import org.apache.commons.io.IOUtils;
 import org.testng.ITestNGMethod;
@@ -11,17 +11,17 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
-public class QuanticDataProvider {
-    @DataProvider(name = "QuanticDataProvider")
-    public static Object[][] QuanticTestDataProvider(ITestNGMethod testNGMethod) {
+public class GemjarDataProvider {
+    @DataProvider(name = "GemjarDataProvider")
+    public static Object[][] GemjarTestDataProvider(ITestNGMethod testNGMethod) {
         try {
             String methodName = testNGMethod.getMethodName();
             String data;
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            if (QuanticGlobalVar.testCaseDataJsonPath != null) {
-                data = new String(Files.readAllBytes(new File(QuanticGlobalVar.testCaseDataJsonPath).toPath()));
+            if (GemjarGlobalVar.testCaseDataJsonPath != null) {
+                data = new String(Files.readAllBytes(new File(GemjarGlobalVar.testCaseDataJsonPath).toPath()));
             } else {
-                data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(QuanticGlobalVar.testCaseFileName),
+                data = IOUtils.toString(ClassLoader.getSystemResourceAsStream(GemjarGlobalVar.testCaseFileName),
                         StandardCharsets.UTF_8);
             }
             JsonElement jsonElement = gson.fromJson(data, JsonElement.class);

@@ -12,7 +12,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.gemini.generic.base.provider.GemJARGlobalVar;
 import com.gemini.generic.base.provider.TestCaseData;
-import com.gemini.generic.listners.PropertyListeners;
+import com.gemini.generic.listeners.PropertyListeners;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

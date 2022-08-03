@@ -1,6 +1,6 @@
 package com.gemini.generic.base.provider;
 
-import com.gemini.generic.listners.QuanticTestngTestFilter;
+import com.gemini.generic.listeners.QuanticTestngTestFilter;
 import com.gemini.generic.quartz.reporting.GemTestReporter;
 
 import org.testng.ITestContext;

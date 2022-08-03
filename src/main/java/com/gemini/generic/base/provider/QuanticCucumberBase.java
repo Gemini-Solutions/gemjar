@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 
 import org.testng.annotations.BeforeSuite;
 
-import com.gemini.generic.listners.PropertyListeners;
+import com.gemini.generic.listeners.PropertyListeners;
 import com.gemini.generic.quartz.reporting.GemTestReporter;
 import com.gemini.generic.remote.invocation.ProjectApiUrl;
 import com.gemini.generic.remote.invocation.ProjectSampleJson;

@@ -9,8 +9,8 @@ import org.reflections.Reflections;
 import org.testng.IMethodInterceptor;
 import org.testng.TestNG;
 
-import com.gemini.generic.listners.PropertyListeners;
-import com.gemini.generic.listners.QuanticTestngTestFilter;
+import com.gemini.generic.listeners.PropertyListeners;
+import com.gemini.generic.listeners.QuanticTestngTestFilter;
 
 public class QuanticMainClass {
 

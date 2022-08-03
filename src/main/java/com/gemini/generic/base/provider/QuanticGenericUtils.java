@@ -9,7 +9,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gemini.generic.listners.PropertyListeners;
+import com.gemini.generic.listeners.PropertyListeners;
 
 public class QuanticGenericUtils extends GemJARGlobalVar {
     public static void setKerberosRequiredConfiguration() {
